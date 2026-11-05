@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VidaPlena — Medical Clinic Template · Documentation</title>
+<style>
+  body { font-family: "Segoe UI", system-ui, Arial, sans-serif; line-height: 1.65; color: #17323a; background: #f5fafa; margin: 0; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.2rem 4rem; }
+  h1 { font-family: Georgia, serif; font-size: 2.2rem; margin-bottom: 0.2rem; }
+  h2 { font-family: Georgia, serif; margin-top: 2.4rem; border-bottom: 2px solid #d3e4e2; padding-bottom: 0.4rem; }
+  h3 { margin-top: 1.4rem; }
+  code { background: #e7f2f1; padding: 0.1rem 0.4rem; border-radius: 5px; font-size: 0.92em; }
+  pre { background: #0c222a; color: #e8f3f2; padding: 1rem 1.2rem; border-radius: 10px; overflow-x: auto; font-size: 0.88rem; }
+  .muted { color: #5a727c; }
+  .note { background: #eafaf2; border: 1px solid #b7dfc2; border-radius: 10px; padding: 0.9rem 1.1rem; }
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+  th, td { border: 1px solid #d3e4e2; padding: 0.55rem 0.8rem; text-align: left; font-size: 0.95rem; }
+  th { background: #e7f2f1; }
+  ul li { margin-bottom: 0.35rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>VidaPlena — Medical Clinic HTML Template</h1>
+  <p class="muted">Documentation · Version 1.0 · Pure HTML5 / CSS3 / Vanilla JavaScript — no frameworks, no build step, no external dependencies.</p>
+
+  <h2>1. What's included</h2>
+  <pre>vidaplena-clinic-template/
+├── index.html          Home (hero, services, why-us, testimonials)
+├── services.html       Services &amp; prices with category tabs
+├── doctors.html        Doctors / team profiles
+├── about.html          Story, values, facilities preview
+├── facilities.html     Facilities gallery with lightbox
+├── appointment.html    Appointment form + contact info
+├── documentation.html  This guide
+├── css/
+│   ├── style.css       Main stylesheet (themes, layout, components)
+│   └── responsive.css  Tablet &amp; mobile breakpoints
+├── js/
+│   ├── main.js         Theme toggle, mobile nav, animations, slider
+│   ├── services.js     Services category tabs
+│   ├── gallery.js      Facilities lightbox
+│   └── form.js         Appointment form validation
+└── assets/img/         Demo graphics (replace with your own photos)</pre>
+
+  <h2>2. Installation</h2>
+  <ol>
+    <li>Unzip the package.</li>
+    <li>Upload the whole <code>vidaplena-clinic-template</code> folder to your web host (or open <code>index.html</code> locally in a browser — everything works without a server).</li>
+    <li>Done. There is no build step and nothing to compile.</li>
+  </ol>
+  <p class="note"><strong>Note:</strong> The appointment form validates on the client side and shows a confirmation message, but it does not send email or store bookings by itself. Connect it to your booking system or a form service by pointing the form's submit handler (see <code>js/form.js</code>) to your endpoint.</p>
+
+  <h2>3. Customising</h2>
+
+  <h3>3.1 Colours &amp; dark mode</h3>
+  <p>All colours live in CSS variables at the top of <code>css/style.css</code>. Change <code>--accent</code> (clinical teal) and <code>--accent2</code> (calm green) to rebrand the whole site. Dark-mode values are in the <code>[data-theme="dark"]</code> block right below. The toggle button in the header switches themes and remembers the visitor's choice in <code>localStorage</code>.</p>
+
+  <h3>3.2 Text &amp; content</h3>
+  <p>Every text is plain HTML — edit it directly in the page files. The header, footer and navigation are repeated in each page (standard for static templates), so update them in all six files when you change links or contact details.</p>
+
+  <h3>3.3 Clinic name &amp; logo</h3>
+  <p>The demo clinic is called <strong>VidaPlena</strong>. To rename it, search-and-replace <code>VidaPlena</code> and <code>vidaplena</code> across the HTML files (titles, logo, footer and the example email addresses), and swap the <code>✚</code> logo mark in the header/footer for your own symbol or an image.</p>
+
+  <h3>3.4 Images</h3>
+  <p>Demo graphics are in <code>assets/img/</code>. They are original abstract illustrations generated for this template. Replace them with your own photos using the same file names to avoid touching any HTML:</p>
+  <table>
+    <tr><th>File</th><th>Used for</th></tr>
+    <tr><td><code>hero-clinic.jpg</code></td><td>Home hero background</td></tr>
+    <tr><td><code>facility-reception.jpg</code></td><td>Home &amp; About clinic sections + facilities gallery</td></tr>
+    <tr><td><code>facility-consultation.jpg</code></td><td>Family Medicine service card + facilities gallery</td></tr>
+    <tr><td><code>facility-lab.jpg</code></td><td>Laboratory service card + facilities gallery</td></tr>
+    <tr><td><code>facility-treatment.jpg</code></td><td>Cardiology service card, About page + facilities gallery</td></tr>
+  </table>
+  <p>The facilities gallery also includes CSS “art tiles” — gradient placeholders with an icon and text. Replace a tile with a photo by swapping the <code>.art-tile</code> block for an <code>&lt;img&gt;</code> tag (example in the facilities page comments).</p>
+
+  <h3>3.5 Doctors &amp; team</h3>
+  <p>Doctor profiles live in <code>doctors.html</code> as <code>.team-card</code> blocks. The avatars are CSS circles with the doctor's initials — a deliberate placeholder, so the template ships with no stock-photo faces. To use a real photo, replace the <code>.avatar</code> div with an <code>&lt;img class="avatar"&gt;</code> using your own staff photo. All demo names and bios are fictional placeholders: replace them with your real team before going live. Remember to also update the “Preferred doctor” list in <code>appointment.html</code>.</p>
+
+  <h3>3.6 Services &amp; prices</h3>
+  <p>Service categories are panels in <code>services.html</code>. Each tab button has a <code>data-target</code> matching a panel <code>id</code> (<code>panel-general</code>, <code>panel-specialists</code>, <code>panel-lab</code>, <code>panel-prevention</code>). To add a category: copy a button, change its label and <code>data-target</code>, then copy a panel with the matching <code>id</code> and edit the services and prices.</p>
+
+  <h3>3.7 Testimonials</h3>
+  <p>Add or remove <code>.testimonial-slide</code> blocks in <code>index.html</code> — the slider dots and auto-rotation adjust automatically. Demo testimonials are fictional placeholders; use real patient quotes only with their consent.</p>
+
+  <h3>3.8 Appointment form rules</h3>
+  <p>Validation lives in <code>js/form.js</code>: required fields, email format, phone (7+ digits) and no past dates. Edit those rules in one place if your clinic differs. The department and doctor dropdowns are plain <code>&lt;select&gt;</code> elements in <code>appointment.html</code> — edit their options to match your clinic.</p>
+
+  <h2>4. Browser support</h2>
+  <p>Current versions of Chrome, Firefox, Safari and Edge. Uses CSS variables, flexbox, grid and <code>IntersectionObserver</code> — with graceful fallbacks (content stays visible if an API is missing).</p>
+
+  <h2>5. Credits</h2>
+  <ul>
+    <li>Demo graphics: original abstract illustrations generated for this template; free to use in your project.</li>
+    <li>Doctor avatars: CSS initial circles — no stock photos, no real people.</li>
+    <li>Icons: Unicode symbols/emoji rendered by the visitor's system — no icon fonts or external assets.</li>
+    <li>Fonts: system font stacks only (Georgia + system sans), so the template works fully offline.</li>
+  </ul>
+
+  <h2>6. Support</h2>
+  <p>Questions about this template? Contact the author through the marketplace where you purchased it. Please include the page name and a screenshot of the issue.</p>
+
+</div>
+</body>
+</html>

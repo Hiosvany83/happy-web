@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VidaPlena — Medical Clinic | Book an Appointment</title>
+  <meta name="description" content="Book an appointment at VidaPlena in under a minute: choose a department, a doctor, a date and a time. Front-end form with client-side validation.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- ================= Header ================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html">
+        <span class="logo-mark">✚</span>
+        <span>VidaPlena<small>Medical Clinic</small></span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="doctors.html">Doctors</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="facilities.html">Facilities</a></li>
+          <li><a href="appointment.html" class="active">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button class="theme-toggle" type="button" aria-label="Switch to dark mode">☾</button>
+        <a class="btn btn-primary" href="appointment.html">Book Appointment</a>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= Page banner ================= -->
+  <section class="page-banner">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> · Appointments</div>
+      <h1>Book an Appointment</h1>
+      <p>Tell us what you need and when — we confirm by email, usually within the hour during opening times.</p>
+    </div>
+  </section>
+
+  <!-- ================= Appointment form + contact info ================= -->
+  <section class="section">
+    <div class="container split" style="grid-template-columns: 1.6fr 1fr; align-items: start;">
+
+      <!-- Appointment form (client-side validation in js/form.js) -->
+      <div class="form-card reveal">
+        <form id="appointment-form" novalidate>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="name">Full name <span class="required">*</span></label>
+              <input type="text" id="name" name="name" placeholder="Jane Smith" required>
+              <span class="error-msg">Please enter your name.</span>
+            </div>
+            <div class="form-group">
+              <label for="email">Email <span class="required">*</span></label>
+              <input type="email" id="email" name="email" placeholder="jane@example.com" required>
+              <span class="error-msg">Please enter a valid email address.</span>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone <span class="required">*</span></label>
+              <input type="tel" id="phone" name="phone" placeholder="+1 555 000 1234" required>
+              <span class="error-msg">Please enter a valid phone number (7+ digits).</span>
+            </div>
+            <div class="form-group">
+              <label for="department">Department <span class="required">*</span></label>
+              <select id="department" name="department" required>
+                <option value="">Select a department…</option>
+                <option>Family Medicine</option>
+                <option>Cardiology</option>
+                <option>Pediatrics</option>
+                <option>Dermatology</option>
+                <option>Internal Medicine</option>
+                <option>Physiotherapy</option>
+                <option>Laboratory &amp; Diagnostics</option>
+                <option>Not sure — advise me</option>
+              </select>
+              <span class="error-msg">Please select a department.</span>
+            </div>
+            <div class="form-group">
+              <label for="doctor">Preferred doctor <span style="color:var(--text-soft); font-weight:400;">(optional)</span></label>
+              <select id="doctor" name="doctor">
+                <option value="">First available</option>
+                <option>Dr. Sarah Mitchell — Family Medicine</option>
+                <option>Dr. James Carter — Cardiology</option>
+                <option>Dr. Emily Chen — Pediatrics</option>
+                <option>Dr. David Osei — Dermatology</option>
+                <option>Dr. Anna Rossi — Internal Medicine</option>
+                <option>Dr. Michael Novak — Physiotherapy</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="date">Preferred date <span class="required">*</span></label>
+              <input type="date" id="date" name="date" required>
+              <span class="error-msg">Please choose a date that is not in the past.</span>
+            </div>
+            <div class="form-group">
+              <label for="time">Preferred time <span class="required">*</span></label>
+              <select id="time" name="time" required>
+                <option value="">Select a time…</option>
+                <option>08:00</option><option>09:00</option><option>10:00</option>
+                <option>11:00</option><option>12:00</option><option>14:00</option>
+                <option>15:00</option><option>16:00</option><option>17:00</option>
+                <option>18:00</option><option>19:00</option>
+              </select>
+              <span class="error-msg">Please select a time.</span>
+            </div>
+            <div class="form-group">
+              <label for="visit-type">Visit type <span style="color:var(--text-soft); font-weight:400;">(optional)</span></label>
+              <select id="visit-type" name="visit-type">
+                <option value="">In person at the clinic</option>
+                <option>First visit</option>
+                <option>Follow-up</option>
+                <option>Test results review</option>
+                <option>Home visit</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label for="notes">What brings you in? <span style="color:var(--text-soft); font-weight:400;">(optional)</span></label>
+              <textarea id="notes" name="notes" rows="4" placeholder="Symptoms, questions, current medication — anything that helps your doctor prepare."></textarea>
+            </div>
+          </div>
+          <p style="margin-top:1.5rem;">
+            <button class="btn btn-primary" type="submit" style="width:100%;">Request Appointment</button>
+          </p>
+          <div class="form-success" role="status">
+            ✔ Thank you! Your appointment request was received. We will confirm by email within one hour during opening times.
+          </div>
+        </form>
+      </div>
+
+      <!-- Contact information -->
+      <div class="contact-info reveal">
+        <div class="info-block">
+          <div class="info-icon">📍</div>
+          <div>
+            <h3>Visit Us</h3>
+            <p>456 Wellness Avenue, Riverside<br>Free parking behind the building</p>
+          </div>
+        </div>
+        <div class="info-block">
+          <div class="info-icon">🕗</div>
+          <div>
+            <h3>Opening Hours</h3>
+            <p>Mon – Fri: 8:00 AM – 8:00 PM<br>Sat: 9:00 AM – 2:00 PM<br>Sun: Closed</p>
+          </div>
+        </div>
+        <div class="info-block">
+          <div class="info-icon">📞</div>
+          <div>
+            <h3>Call or Write</h3>
+            <p>Phone: +1 (555) 234-5678<br>Email: hello@vidaplena.example<br>Results: lab@vidaplena.example</p>
+          </div>
+        </div>
+        <div class="info-block">
+          <div class="info-icon">🚑</div>
+          <div>
+            <h3>Urgent Cases</h3>
+            <p>Urgent slots are released every morning at 8:00. For life-threatening emergencies, always call your local emergency number first.</p>
+          </div>
+        </div>
+        <!-- Map placeholder: replace with an embedded map iframe if you wish -->
+        <div class="map-placeholder">
+          <div>
+            <strong>📍 456 Wellness Avenue</strong>
+            Map embed goes here — drop in your favourite map provider's iframe.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= Footer ================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="logo" href="index.html">
+            <span class="logo-mark">✚</span>
+            <span>VidaPlena<small>Medical Clinic</small></span>
+          </a>
+          <p>Family medicine, specialists and an on-site laboratory — honest prices and doctors who listen, in the heart of the neighbourhood since 2012.</p>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="doctors.html">Doctors</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="facilities.html">Facilities</a></li>
+            <li><a href="appointment.html">Appointments</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Opening Hours</h4>
+          <ul>
+            <li>Mon – Fri: 8:00 – 20:00</li>
+            <li>Saturday: 9:00 – 14:00</li>
+            <li>Sunday: Closed</li>
+            <li>Urgent slots every morning</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <p>456 Wellness Avenue, Riverside<br>
+          Phone: +1 (555) 234-5678<br>
+          Email: hello@vidaplena.example</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span class="js-year">2026</span> VidaPlena Medical Clinic. All rights reserved.</span>
+        <span>Care that listens.</span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" type="button" aria-label="Back to top">↑</button>
+
+  <script src="js/main.js"></script>
+  <script src="js/form.js"></script>
+</body>
+</html>

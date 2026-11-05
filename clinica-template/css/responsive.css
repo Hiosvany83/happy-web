@@ -1,0 +1,54 @@
+/* ============================================================
+   VIDAPLENA — Medical Clinic HTML Template
+   Responsive stylesheet (responsive.css)
+   Breakpoints: 992px (tablet), 768px (mobile), 520px (small)
+   ============================================================ */
+
+@media (max-width: 992px) {
+  .cards-grid { grid-template-columns: repeat(2, 1fr); }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+  .split { grid-template-columns: 1fr; gap: 2.2rem; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .hero-content h1 { font-size: 2.8rem; }
+}
+
+@media (max-width: 768px) {
+  .section { padding: 3.8rem 0; }
+
+  /* Mobile navigation: slide-down panel */
+  .nav-toggle { display: grid; place-items: center; }
+  .main-nav {
+    position: absolute; top: 100%; left: 0; right: 0;
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    max-height: 0; overflow: hidden; transition: max-height 0.35s ease;
+  }
+  .main-nav.open { max-height: 420px; }
+  .main-nav ul { flex-direction: column; gap: 0; padding: 0.6rem 4%; }
+  .main-nav li { border-bottom: 1px solid var(--border); }
+  .main-nav li:last-child { border-bottom: none; }
+  .main-nav a { display: block; padding: 0.85rem 0; }
+  .header-actions .btn { display: none; } /* keep header compact on mobile */
+
+  .hero { padding-top: 7rem; }
+  .hero-content h1 { font-size: 2.3rem; }
+  .hero-badge { flex-direction: column; gap: 0.7rem; }
+  .page-banner { padding: 8rem 0 3.5rem; }
+  .page-banner h1 { font-size: 2.2rem; }
+
+  .service-list { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-card { padding: 1.6rem; }
+  .testimonial-slide blockquote { font-size: 1.2rem; }
+  .section-head h2 { font-size: 1.9rem; }
+}
+
+@media (max-width: 520px) {
+  .cards-grid, .team-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .hero-buttons { flex-direction: column; align-items: stretch; }
+  .hero-buttons .btn { text-align: center; }
+  .stats { gap: 1.4rem; }
+}
