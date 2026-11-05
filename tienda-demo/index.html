@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Tienda Offline</title>
+<style>
+  :root{
+    --fondo:#f4f4f2; --tarjeta:#ffffff; --texto:#22252a; --suave:#6b7280;
+    --acento:#1f6f4a; --acento-osc:#185a3c; --borde:#e2e2de; --peligro:#b3372f;
+    --wa:#25d366; --wa-osc:#1eb856;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif; background:var(--fondo); color:var(--texto); padding-bottom:110px;}
+  header{background:var(--tarjeta); border-bottom:1px solid var(--borde); padding:16px; position:sticky; top:0; z-index:20;}
+  header h1{font-size:1.35rem; font-weight:700;}
+  header p{color:var(--suave); font-size:.85rem; margin-top:2px;}
+  nav{display:flex; gap:8px; padding:12px 16px 0;}
+  nav button{flex:1; padding:10px; border:1px solid var(--borde); background:var(--tarjeta); border-radius:10px; font-size:.95rem; cursor:pointer; color:var(--texto);}
+  nav button.activa{background:var(--acento); color:#fff; border-color:var(--acento); font-weight:600;}
+  main{padding:16px; max-width:980px; margin:0 auto;}
+  .vista{display:none;}
+  .vista.activa{display:block;}
+  /* Tienda */
+  .buscador{width:100%; padding:12px 14px; border:1px solid var(--borde); border-radius:10px; font-size:1rem; margin-bottom:14px; background:var(--tarjeta);}
+  .rejilla{display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:12px;}
+  .producto{background:var(--tarjeta); border:1px solid var(--borde); border-radius:14px; padding:14px; display:flex; flex-direction:column; gap:6px;}
+  .producto .emoji{font-size:2.4rem; text-align:center; line-height:1.1;}
+  .producto h3{font-size:1rem; line-height:1.25;}
+  .producto .desc{color:var(--suave); font-size:.82rem; line-height:1.35; flex:1;}
+  .precio{font-weight:700; font-size:1.02rem;}
+  .precio .otra{display:block; font-weight:500; color:var(--suave); font-size:.82rem;}
+  .btn{border:none; border-radius:10px; padding:10px 14px; font-size:.95rem; cursor:pointer; background:var(--acento); color:#fff; font-weight:600;}
+  .btn:active{background:var(--acento-osc);}
+  .btn.sec{background:#ececea; color:var(--texto); font-weight:500;}
+  .btn.peligro{background:var(--peligro);}
+  .btn.wa{background:var(--wa); color:#12351f; width:100%; padding:14px; font-size:1.05rem;}
+  .btn.wa:active{background:var(--wa-osc);}
+  .vacio{color:var(--suave); text-align:center; padding:30px 10px; font-size:.95rem;}
+  /* Carrito */
+  #carrito{background:var(--tarjeta); border:1px solid var(--borde); border-radius:14px; padding:14px; margin-top:18px;}
+  #carrito h2{font-size:1.05rem; margin-bottom:10px;}
+  .linea{display:flex; align-items:center; gap:8px; padding:7px 0; border-bottom:1px solid var(--borde); font-size:.92rem;}
+  .linea:last-of-type{border-bottom:none;}
+  .linea .nom{flex:1; line-height:1.3;}
+  .linea .nom small{display:block; color:var(--suave);}
+  .cant{display:flex; align-items:center; gap:6px;}
+  .cant button{width:28px; height:28px; border-radius:8px; border:1px solid var(--borde); background:#f4f4f2; font-size:1rem; cursor:pointer; line-height:1;}
+  .totales{margin:12px 0; font-size:1rem;}
+  .totales .fila{display:flex; justify-content:space-between; padding:3px 0;}
+  .totales .principal{font-weight:800; font-size:1.12rem;}
+  /* Barra fija del carrito */
+  #barraCarrito{position:fixed; left:0; right:0; bottom:0; background:var(--tarjeta); border-top:1px solid var(--borde); padding:10px 16px; display:none; z-index:30;}
+  #barraCarrito.visible{display:flex; align-items:center; gap:12px;}
+  #barraCarrito .resumen{flex:1; font-size:.92rem; line-height:1.3;}
+  #barraCarrito .resumen b{font-size:1.02rem;}
+  #barraCarrito a{text-decoration:none;}
+  /* Admin y ajustes */
+  .panel{background:var(--tarjeta); border:1px solid var(--borde); border-radius:14px; padding:16px; margin-bottom:16px;}
+  .panel h2{font-size:1.05rem; margin-bottom:12px;}
+  label{display:block; font-size:.85rem; font-weight:600; margin:12px 0 5px;}
+  label:first-of-type{margin-top:0;}
+  input[type=text], input[type=number], input[type=tel], textarea, select{
+    width:100%; padding:10px 12px; border:1px solid var(--borde); border-radius:10px; font-size:1rem; background:#fff; color:var(--texto); font-family:inherit;}
+  textarea{resize:vertical; min-height:64px;}
+  .doscol{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .filaBtns{display:flex; gap:8px; margin-top:14px; flex-wrap:wrap;}
+  .admin-prod{display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--borde);}
+  .admin-prod:last-child{border-bottom:none;}
+  .admin-prod .emoji{font-size:1.7rem;}
+  .admin-prod .info{flex:1; line-height:1.3;}
+  .admin-prod .info small{color:var(--suave); display:block;}
+  .admin-prod button{padding:7px 11px; font-size:.85rem;}
+  .nota{color:var(--suave); font-size:.83rem; line-height:1.45; margin-top:8px;}
+  .ok{color:var(--acento); font-size:.88rem; margin-top:8px; min-height:1em;}
+  @media (min-width:760px){ .rejilla{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));} }
+</style>
+</head>
+<body>
+
+<header>
+  <h1 id="nombreNegocio">Mi Tienda</h1>
+  <p>Catálogo offline · Pedidos por WhatsApp</p>
+</header>
+
+<nav>
+  <button id="tabTienda" class="activa" onclick="mostrarVista('tienda')">🛍️ Tienda</button>
+  <button id="tabAdmin" onclick="mostrarVista('admin')">🛠️ Administrar</button>
+  <button id="tabAjustes" onclick="mostrarVista('ajustes')">⚙️ Ajustes</button>
+</nav>
+
+<main>
+  <!-- ============ VISTA TIENDA ============ -->
+  <section id="vistaTienda" class="vista activa">
+    <input type="text" id="buscador" class="buscador" placeholder="🔎 Buscar un producto…" oninput="pintarTienda()">
+    <div id="rejilla" class="rejilla"></div>
+    <p id="sinResultados" class="vacio" style="display:none;">No hay productos que coincidan con la búsqueda.</p>
+
+    <div id="carrito">
+      <h2>🧺 Tu pedido</h2>
+      <div id="lineasCarrito"></div>
+      <p id="carritoVacio" class="vacio" style="padding:12px;">El pedido está vacío. Toca «Añadir» en los productos que quieras.</p>
+      <div class="totales" id="totales"></div>
+      <button class="btn wa" onclick="pedirWhatsApp()">📲 Pedir por WhatsApp</button>
+      <div class="filaBtns">
+        <button class="btn sec" onclick="vaciarCarrito()">Vaciar pedido</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VISTA ADMINISTRAR ============ -->
+  <section id="vistaAdmin" class="vista">
+    <div class="panel">
+      <h2 id="tituloForm">Añadir producto</h2>
+      <input type="hidden" id="fId">
+      <label for="fNombre">Nombre del producto *</label>
+      <input type="text" id="fNombre" placeholder="Ej.: Croquetas de pollo (10 unidades)">
+      <div class="doscol">
+        <div>
+          <label for="fPrecioCUP">Precio en CUP</label>
+          <input type="number" id="fPrecioCUP" min="0" step="any" placeholder="Ej.: 220">
+        </div>
+        <div>
+          <label for="fPrecioUSD">Precio en USD</label>
+          <input type="number" id="fPrecioUSD" min="0" step="any" placeholder="Ej.: 5">
+        </div>
+      </div>
+      <label for="fEmoji">Emoji o símbolo (imagen del producto)</label>
+      <input type="text" id="fEmoji" maxlength="4" placeholder="Ej.: 🍗 (si lo dejas vacío se usa la inicial)">
+      <label for="fDesc">Descripción</label>
+      <textarea id="fDesc" placeholder="Ej.: Caseras, listas para freír. Se entregan congeladas."></textarea>
+      <div class="filaBtns">
+        <button class="btn" onclick="guardarProducto()">Guardar producto</button>
+        <button class="btn sec" onclick="limpiarForm()">Cancelar / limpiar</button>
+      </div>
+      <p class="nota">Pon el precio en CUP, en USD o en las dos monedas. Al menos uno es obligatorio.</p>
+      <p class="ok" id="msgAdmin"></p>
+    </div>
+
+    <div class="panel">
+      <h2>Mis productos</h2>
+      <div id="listaAdmin"></div>
+      <p class="nota">Los cambios se guardan solos en este teléfono o computadora (no necesitas internet).</p>
+    </div>
+  </section>
+
+  <!-- ============ VISTA AJUSTES ============ -->
+  <section id="vistaAjustes" class="vista">
+    <div class="panel">
+      <h2>Datos de tu negocio</h2>
+      <label for="aNombre">Nombre del negocio</label>
+      <input type="text" id="aNombre" placeholder="Ej.: Comida por encargo «La Esquina»">
+      <label for="aWhats">Tu número de WhatsApp (con código de país)</label>
+      <input type="tel" id="aWhats" placeholder="Ej.: 5351234567">
+      <label for="aMoneda">Moneda principal</label>
+      <select id="aMoneda">
+        <option value="CUP">CUP (peso cubano)</option>
+        <option value="USD">USD (dólar)</option>
+      </select>
+      <div class="filaBtns">
+        <button class="btn" onclick="guardarAjustes()">Guardar ajustes</button>
+      </div>
+      <p class="ok" id="msgAjustes"></p>
+      <p class="nota">El número de WhatsApp es a donde llegarán los pedidos cuando el cliente toque «Pedir por WhatsApp». Escríbelo sin espacios ni signos: código de país + número (Cuba empieza con 53).</p>
+    </div>
+
+    <div class="panel">
+      <h2>Respaldo de tus datos</h2>
+      <p class="nota" style="margin-top:0;">Guarda una copia de tus productos y ajustes en un archivo. Si cambias de teléfono, importa ese archivo aquí y tu tienda queda igual.</p>
+      <div class="filaBtns">
+        <button class="btn sec" onclick="exportarDatos()">⬇️ Exportar respaldo (JSON)</button>
+        <button class="btn sec" onclick="document.getElementById('fileImport').click()">⬆️ Importar respaldo</button>
+        <input type="file" id="fileImport" accept=".json,application/json" style="display:none" onchange="importarDatos(event)">
+      </div>
+      <p class="ok" id="msgRespaldo"></p>
+    </div>
+  </section>
+</main>
+
+<!-- Barra fija con el total del pedido -->
+<div id="barraCarrito">
+  <div class="resumen" id="resumenBarra"></div>
+  <button class="btn wa" style="width:auto;" onclick="document.getElementById('carrito').scrollIntoView({behavior:'smooth'})">Ver pedido</button>
+</div>
+
+<script>
+"use strict";
+/* ================= Datos ================= */
+var CLAVE_PROD = "mitienda_productos_v1";
+var CLAVE_AJUS = "mitienda_ajustes_v1";
+
+var PRODUCTOS_EJEMPLO = [
+  {id:"e1", nombre:"Croquetas de pollo (10 unidades)", precioCUP:220, precioUSD:null, emoji:"🍗", desc:"Caseras, cremosas por dentro. Se entregan congeladas, listas para freír."},
+  {id:"e2", nombre:"Medallones de jamón y queso (8 unidades)", precioCUP:550, precioUSD:null, emoji:"🧀", desc:"Empanizados, con jamón y queso derretido. Ideales para meriendas y fiestas."},
+  {id:"e3", nombre:"Bolitas de queso (16 unidades)", precioCUP:500, precioUSD:null, emoji:"🟡", desc:"Bolitas doradas de queso, crujientes. Se entregan congeladas."},
+  {id:"e4", nombre:"Papas rellenas (6 unidades)", precioCUP:480, precioUSD:null, emoji:"🥔", desc:"Rellenas de picadillo sazonado. Solo calentar y servir."},
+  {id:"e5", nombre:"Empanadas de carne (6 unidades)", precioCUP:450, precioUSD:null, emoji:"🥟", desc:"Masa fina y relleno jugoso. Por encargo con 1 día de antelación."},
+  {id:"e6", nombre:"Flan de la casa", precioCUP:600, precioUSD:null, emoji:"🍮", desc:"Flan tradicional de leche, porción familiar. Se hace por encargo."}
+];
+
+var productos = cargar(CLAVE_PROD, null);
+if(!productos){ productos = PRODUCTOS_EJEMPLO.slice(); guardar(CLAVE_PROD, productos); }
+var ajustes = cargar(CLAVE_AJUS, {nombre:"Mi Tienda", whatsapp:"", moneda:"CUP"});
+var carrito = {}; // id -> cantidad
+
+function cargar(clave, defecto){
+  try{ var v = localStorage.getItem(clave); return v ? JSON.parse(v) : defecto; }
+  catch(e){ return defecto; }
+}
+function guardar(clave, valor){
+  try{ localStorage.setItem(clave, JSON.stringify(valor)); }catch(e){}
+}
+function nuevoId(){ return "p" + Date.now().toString(36) + Math.floor(Math.random()*9999); }
+function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function fmt(n, moneda){
+  var num = Number(n)||0;
+  var txt = (Math.round(num*100)/100).toLocaleString("es-ES",{minimumFractionDigits:0, maximumFractionDigits:2});
+  return moneda==="USD" ? "$" + txt + " USD" : txt + " CUP";
+}
+function precioPrincipal(p){
+  if(ajustes.moneda==="USD"){ return (p.precioUSD!=null) ? {valor:p.precioUSD, moneda:"USD"} : {valor:p.precioCUP, moneda:"CUP"}; }
+  return (p.precioCUP!=null) ? {valor:p.precioCUP, moneda:"CUP"} : {valor:p.precioUSD, moneda:"USD"};
+}
+function precioSecundario(p){
+  var pr = precioPrincipal(p);
+  if(pr.moneda==="USD" && p.precioCUP!=null) return {valor:p.precioCUP, moneda:"CUP"};
+  if(pr.moneda==="CUP" && p.precioUSD!=null) return {valor:p.precioUSD, moneda:"USD"};
+  return null;
+}
+
+/* ================= Vistas ================= */
+function mostrarVista(cual){
+  ["tienda","admin","ajustes"].forEach(function(v){
+    document.getElementById("vista"+v.charAt(0).toUpperCase()+v.slice(1)).classList.toggle("activa", v===cual);
+    document.getElementById("tab"+v.charAt(0).toUpperCase()+v.slice(1)).classList.toggle("activa", v===cual);
+  });
+  if(cual==="admin"){ pintarAdmin(); }
+  if(cual==="ajustes"){ pintarAjustes(); }
+  window.scrollTo({top:0});
+}
+
+/* ================= Tienda ================= */
+function pintarTienda(){
+  document.getElementById("nombreNegocio").textContent = ajustes.nombre || "Mi Tienda";
+  var q = (document.getElementById("buscador").value || "").toLowerCase().trim();
+  var rejilla = document.getElementById("rejilla");
+  var lista = productos.filter(function(p){
+    return !q || p.nombre.toLowerCase().indexOf(q)>=0 || (p.desc||"").toLowerCase().indexOf(q)>=0;
+  });
+  document.getElementById("sinResultados").style.display = lista.length ? "none" : "block";
+  rejilla.innerHTML = lista.map(function(p){
+    var pr = precioPrincipal(p), sec = precioSecundario(p);
+    var imagen = p.emoji ? esc(p.emoji) : esc((p.nombre||"?").trim().charAt(0).toUpperCase());
+    return '<div class="producto">' +
+      '<div class="emoji">' + imagen + '</div>' +
+      '<h3>' + esc(p.nombre) + '</h3>' +
+      '<p class="desc">' + esc(p.desc||"") + '</p>' +
+      '<div class="precio">' + fmt(pr.valor, pr.moneda) +
+        (sec ? '<span class="otra">' + fmt(sec.valor, sec.moneda) + '</span>' : '') +
+      '</div>' +
+      '<button class="btn" onclick="anadir(\'' + p.id + '\')">➕ Añadir</button>' +
+    '</div>';
+  }).join("");
+  pintarCarrito();
+}
+
+function anadir(id){ carrito[id] = (carrito[id]||0) + 1; pintarCarrito(); }
+function cambiarCant(id, delta){
+  carrito[id] = (carrito[id]||0) + delta;
+  if(carrito[id] <= 0) delete carrito[id];
+  pintarCarrito();
+}
+function quitarLinea(id){ delete carrito[id]; pintarCarrito(); }
+function vaciarCarrito(){ carrito = {}; pintarCarrito(); }
+
+function totales(){
+  var t = {CUP:0, USD:0, items:0};
+  Object.keys(carrito).forEach(function(id){
+    var p = productos.filter(function(x){ return x.id===id; })[0];
+    if(!p) return;
+    var c = carrito[id];
+    t.items += c;
+    if(p.precioCUP!=null) t.CUP += p.precioCUP * c;
+    if(p.precioUSD!=null) t.USD += p.precioUSD * c;
+  });
+  return t;
+}
+
+function pintarCarrito(){
+  var cont = document.getElementById("lineasCarrito");
+  var ids = Object.keys(carrito);
+  document.getElementById("carritoVacio").style.display = ids.length ? "none" : "block";
+  cont.innerHTML = ids.map(function(id){
+    var p = productos.filter(function(x){ return x.id===id; })[0];
+    if(!p) return "";
+    var pr = precioPrincipal(p);
+    return '<div class="linea">' +
+      '<div class="nom">' + esc(p.nombre) + '<small>' + fmt(pr.valor, pr.moneda) + ' c/u</small></div>' +
+      '<div class="cant"><button onclick="cambiarCant(\'' + id + '\',-1)">−</button><span>' + carrito[id] + '</span><button onclick="cambiarCant(\'' + id + '\',1)">+</button></div>' +
+      '<b>' + fmt(pr.valor*carrito[id], pr.moneda) + '</b>' +
+      '<button class="cant" style="border:none;background:none;cursor:pointer;" title="Quitar" onclick="quitarLinea(\'' + id + '\')">🗑️</button>' +
+    '</div>';
+  }).join("");
+
+  var t = totales();
+  var filas = "";
+  var orden = ajustes.moneda==="USD" ? ["USD","CUP"] : ["CUP","USD"];
+  orden.forEach(function(m){
+    if(t[m] > 0){
+      var esPrincipal = (m===ajustes.moneda);
+      filas += '<div class="fila' + (esPrincipal ? " principal" : "") + '"><span>Total' + (esPrincipal ? "" : " (otra moneda)") + ':</span><span>' + fmt(t[m], m) + '</span></div>';
+    }
+  });
+  document.getElementById("totales").innerHTML = filas;
+
+  var barra = document.getElementById("barraCarrito");
+  if(t.items > 0){
+    barra.classList.add("visible");
+    var totTxt = [];
+    orden.forEach(function(m){ if(t[m]>0) totTxt.push(fmt(t[m], m)); });
+    document.getElementById("resumenBarra").innerHTML = "🧺 <b>" + t.items + "</b> producto(s)<br>Total: <b>" + totTxt.join(" · ") + "</b>";
+  } else {
+    barra.classList.remove("visible");
+  }
+}
+
+function pedirWhatsApp(){
+  var ids = Object.keys(carrito);
+  if(!ids.length){ alert("El pedido está vacío. Añade al menos un producto."); return; }
+  if(!ajustes.whatsapp){ alert("Falta el número de WhatsApp del negocio. Ve a la pestaña «Ajustes» y escríbelo."); mostrarVista("ajustes"); return; }
+  var lineas = ["*Pedido — " + (ajustes.nombre || "Mi Tienda") + "*"];
+  ids.forEach(function(id){
+    var p = productos.filter(function(x){ return x.id===id; })[0];
+    if(!p) return;
+    var pr = precioPrincipal(p);
+    lineas.push("• " + p.nombre + " × " + carrito[id] + " = " + fmt(pr.valor*carrito[id], pr.moneda));
+  });
+  var t = totales();
+  var orden = ajustes.moneda==="USD" ? ["USD","CUP"] : ["CUP","USD"];
+  orden.forEach(function(m){ if(t[m]>0) lineas.push("*Total: " + fmt(t[m], m) + "*"); });
+  lineas.push("");
+  lineas.push("Nombre:");
+  lineas.push("Dirección de entrega:");
+  var url = "https://wa.me/" + String(ajustes.whatsapp).replace(/\D/g,"") + "?text=" + encodeURIComponent(lineas.join("\n"));
+  window.open(url, "_blank");
+}
+
+/* ================= Administrar ================= */
+function pintarAdmin(){
+  var cont = document.getElementById("listaAdmin");
+  if(!productos.length){ cont.innerHTML = '<p class="vacio">Todavía no tienes productos. Añade el primero en el formulario de arriba.</p>'; return; }
+  cont.innerHTML = productos.map(function(p){
+    var pr = precioPrincipal(p), sec = precioSecundario(p);
+    var imagen = p.emoji ? esc(p.emoji) : esc((p.nombre||"?").trim().charAt(0).toUpperCase());
+    return '<div class="admin-prod">' +
+      '<div class="emoji">' + imagen + '</div>' +
+      '<div class="info"><b>' + esc(p.nombre) + '</b><small>' + fmt(pr.valor, pr.moneda) + (sec ? " · " + fmt(sec.valor, sec.moneda) : "") + '</small></div>' +
+      '<button class="btn sec" onclick="editarProducto(\'' + p.id + '\')">✏️ Editar</button>' +
+      '<button class="btn peligro" onclick="borrarProducto(\'' + p.id + '\')">🗑️ Borrar</button>' +
+    '</div>';
+  }).join("");
+}
+
+function leerNumero(id){
+  var v = document.getElementById(id).value.trim();
+  if(v==="") return null;
+  var n = Number(v.replace(",", "."));
+  return isNaN(n) || n < 0 ? null : n;
+}
+
+function guardarProducto(){
+  var nombre = document.getElementById("fNombre").value.trim();
+  var pcup = leerNumero("fPrecioCUP");
+  var pusd = leerNumero("fPrecioUSD");
+  var emoji = document.getElementById("fEmoji").value.trim();
+  var desc = document.getElementById("fDesc").value.trim();
+  var msg = document.getElementById("msgAdmin");
+  if(!nombre){ msg.textContent = "⚠️ Escribe el nombre del producto."; return; }
+  if(pcup==null && pusd==null){ msg.textContent = "⚠️ Pon el precio en CUP, en USD o en las dos monedas."; return; }
+  var id = document.getElementById("fId").value;
+  if(id){
+    productos = productos.map(function(p){
+      return p.id===id ? {id:id, nombre:nombre, precioCUP:pcup, precioUSD:pusd, emoji:emoji, desc:desc} : p;
+    });
+    msg.textContent = "✅ Producto actualizado.";
+  } else {
+    productos.push({id:nuevoId(), nombre:nombre, precioCUP:pcup, precioUSD:pusd, emoji:emoji, desc:desc});
+    msg.textContent = "✅ Producto añadido a tu tienda.";
+  }
+  guardar(CLAVE_PROD, productos);
+  limpiarForm(false);
+  pintarAdmin();
+  pintarTienda();
+}
+
+function editarProducto(id){
+  var p = productos.filter(function(x){ return x.id===id; })[0];
+  if(!p) return;
+  document.getElementById("fId").value = p.id;
+  document.getElementById("fNombre").value = p.nombre;
+  document.getElementById("fPrecioCUP").value = p.precioCUP!=null ? p.precioCUP : "";
+  document.getElementById("fPrecioUSD").value = p.precioUSD!=null ? p.precioUSD : "";
+  document.getElementById("fEmoji").value = p.emoji || "";
+  document.getElementById("fDesc").value = p.desc || "";
+  document.getElementById("tituloForm").textContent = "Editar producto";
+  document.getElementById("msgAdmin").textContent = "";
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function borrarProducto(id){
+  var p = productos.filter(function(x){ return x.id===id; })[0];
+  if(!p) return;
+  if(!confirm("¿Borrar «" + p.nombre + "» de tu tienda?")) return;
+  productos = productos.filter(function(x){ return x.id!==id; });
+  delete carrito[id];
+  guardar(CLAVE_PROD, productos);
+  pintarAdmin();
+  pintarTienda();
+  document.getElementById("msgAdmin").textContent = "Producto borrado.";
+}
+
+function limpiarForm(limpiarMsg){
+  document.getElementById("fId").value = "";
+  document.getElementById("fNombre").value = "";
+  document.getElementById("fPrecioCUP").value = "";
+  document.getElementById("fPrecioUSD").value = "";
+  document.getElementById("fEmoji").value = "";
+  document.getElementById("fDesc").value = "";
+  document.getElementById("tituloForm").textContent = "Añadir producto";
+  if(limpiarMsg !== false) document.getElementById("msgAdmin").textContent = "";
+}
+
+/* ================= Ajustes ================= */
+function pintarAjustes(){
+  document.getElementById("aNombre").value = ajustes.nombre || "";
+  document.getElementById("aWhats").value = ajustes.whatsapp || "";
+  document.getElementById("aMoneda").value = ajustes.moneda || "CUP";
+}
+function guardarAjustes(){
+  ajustes.nombre = document.getElementById("aNombre").value.trim() || "Mi Tienda";
+  ajustes.whatsapp = document.getElementById("aWhats").value.replace(/\D/g, "");
+  ajustes.moneda = document.getElementById("aMoneda").value;
+  guardar(CLAVE_AJUS, ajustes);
+  document.getElementById("msgAjustes").textContent = "✅ Ajustes guardados.";
+  pintarTienda();
+}
+
+/* ================= Respaldo ================= */
+function exportarDatos(){
+  var datos = {productos: productos, ajustes: ajustes};
+  var blob = new Blob([JSON.stringify(datos, null, 2)], {type:"application/json"});
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "respaldo-mi-tienda.json";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(a.href); }, 2000);
+  document.getElementById("msgRespaldo").textContent = "✅ Respaldo descargado: «respaldo-mi-tienda.json».";
+}
+function importarDatos(event){
+  var archivo = event.target.files[0];
+  if(!archivo) return;
+  var lector = new FileReader();
+  lector.onload = function(){
+    try{
+      var datos = JSON.parse(lector.result);
+      if(!datos || !Array.isArray(datos.productos)) throw new Error("formato");
+      productos = datos.productos;
+      if(datos.ajustes) ajustes = datos.ajustes;
+      carrito = {};
+      guardar(CLAVE_PROD, productos);
+      guardar(CLAVE_AJUS, ajustes);
+      pintarTienda(); pintarAdmin(); pintarAjustes();
+      document.getElementById("msgRespaldo").textContent = "✅ Respaldo importado. Tu tienda ya está como en la copia.";
+    }catch(e){
+      document.getElementById("msgRespaldo").textContent = "⚠️ Ese archivo no es un respaldo válido de esta tienda.";
+    }
+    event.target.value = "";
+  };
+  lector.readAsText(archivo);
+}
+
+/* ================= Inicio ================= */
+pintarTienda();
+</script>
+</body>
+</html>
