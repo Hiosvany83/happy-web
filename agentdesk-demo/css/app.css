@@ -1,0 +1,36 @@
+/* ============================================================
+   AgentDesk — App
+   App-level styles that sit on top of tokens/base/components/
+   layout/responsive: the .full-page shell state that js/app.js
+   toggles on #app for standalone screens (auth, landing,
+   pricing, 404, onboarding, maintenance), the .tab class hook
+   used inside .tabs, and the odd-step spacing utilities the
+   screens reference (.mt-1, .mt-3, .mb-3). Load last.
+   ============================================================ */
+
+/* ---------- Full-page shell state ---------- */
+/* Standalone screens render without sidebar/topbar (hidden by
+   js/app.js); the app root becomes a plain block so the screen
+   owns the full viewport width and height. */
+.app.full-page { display: block; background: var(--bg); }
+.app.full-page .main { min-height: 100vh; width: 100%; }
+
+/* ---------- Tabs (class hook) ---------- */
+/* The base tab look lives in components.css (.tabs button);
+   these rules bind the same tokens to the .tab class the
+   notifications screen puts on its filter buttons. */
+.tabs .tab {
+  border: none; background: transparent; color: var(--text-3);
+  font-size: 13.5px; font-weight: var(--weight-medium);
+  padding: 10px 14px; border-bottom: 2px solid transparent;
+  margin-bottom: -1px; white-space: nowrap; cursor: pointer;
+}
+.tabs .tab:hover { color: var(--text); }
+.tabs .tab.active { color: var(--brand-400); border-bottom-color: var(--brand-500); }
+
+/* ---------- Spacing utilities (odd steps) ---------- */
+/* base.css ships the even steps (.mt-2/.mt-4/.mt-6, .mb-2/
+   .mb-4/.mb-6); screens also use the odd steps below. */
+.mt-1 { margin-top: var(--space-1); }
+.mt-3 { margin-top: var(--space-3); }
+.mb-3 { margin-bottom: var(--space-3); }
