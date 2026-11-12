@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reconly — AI Finance Operations Dashboard</title>
+<meta name="description" content="Reconly is a production-quality AI finance operations dashboard UI kit: cash flow, invoicing, AP automation, budgets, payroll and an AI finance copilot. 38 screens, light + dark, pure HTML/CSS/JS.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div class="shell" id="shell">
+
+  <div class="scrim" id="scrim"></div>
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar" aria-label="Primary">
+    <div class="brand">
+      <div class="logo">✓</div>
+      <span class="wordmark">Reconly</span>
+      <span class="version">v1.0</span>
+    </div>
+
+    <div class="workspace-switcher" id="ws-switcher" tabindex="0" role="button" aria-label="Switch workspace">
+      <span class="avatar avatar-sm" style="background:#10b981">A</span>
+      <span class="grow" style="min-width:0">
+        <span class="ws-name">Arcadia Systems</span>
+        <span class="ws-plan">Scale plan</span>
+      </span>
+      <span class="text-3">⇅</span>
+    </div>
+
+    <button class="cmdk-trigger" id="cmdk-btn" aria-label="Open command palette">
+      <span>⌕</span><span class="grow" style="text-align:left">Search or command…</span><span class="kbd">⌘K</span>
+    </button>
+
+    <nav class="grow" style="overflow-y:auto">
+      <div class="nav-group">Overview</div>
+      <a class="nav-item" href="#/command" data-nav="command"><span class="icon">▦</span>Command Center</a>
+      <a class="nav-item" href="#/cashflow" data-nav="cashflow"><span class="icon">≋</span>Cash Flow</a>
+      <a class="nav-item" href="#/revenue" data-nav="revenue"><span class="icon">↗</span>Revenue Analytics</a>
+
+      <div class="nav-group">Money in</div>
+      <a class="nav-item" href="#/invoices" data-nav="invoices"><span class="icon">🧾</span>Invoices<span class="nav-badge warn">4 overdue</span></a>
+      <a class="nav-item" href="#/customers" data-nav="customers"><span class="icon">👤</span>Customers</a>
+      <a class="nav-item" href="#/invoice-detail" data-nav="invoice-detail"><span class="icon">📄</span>Invoice Detail</a>
+
+      <div class="nav-group">Money out</div>
+      <a class="nav-item" href="#/bills" data-nav="bills"><span class="icon">📥</span>Bills &amp; Payables</a>
+      <a class="nav-item" href="#/bill-detail" data-nav="bill-detail"><span class="icon">🔎</span>Bill &amp; Approval</a>
+      <a class="nav-item" href="#/approvals" data-nav="approvals"><span class="icon">✔</span>Approvals<span class="nav-badge">7</span></a>
+      <a class="nav-item" href="#/automation" data-nav="automation"><span class="icon">✦</span>AI Invoice Automation</a>
+      <a class="nav-item" href="#/spend" data-nav="spend"><span class="icon">💳</span>Spend &amp; Expenses</a>
+      <a class="nav-item" href="#/vendors" data-nav="vendors"><span class="icon">🏢</span>Vendors</a>
+      <a class="nav-item" href="#/vendor-detail" data-nav="vendor-detail"><span class="icon">🏷</span>Vendor Detail</a>
+      <a class="nav-item" href="#/cards" data-nav="cards"><span class="icon">▭</span>Cards &amp; Transactions</a>
+      <a class="nav-item" href="#/payroll" data-nav="payroll"><span class="icon">👥</span>Payroll</a>
+
+      <div class="nav-group">Intelligence</div>
+      <a class="nav-item" href="#/budgets" data-nav="budgets"><span class="icon">🎯</span>Budgets</a>
+      <a class="nav-item" href="#/ai-costs" data-nav="ai-costs"><span class="icon">🧠</span>AI Cost Intelligence</a>
+      <a class="nav-item" href="#/forecast" data-nav="forecast"><span class="icon">🔮</span>Forecast &amp; Scenarios</a>
+      <a class="nav-item" href="#/copilot" data-nav="copilot"><span class="icon">✦</span>AI Finance Copilot</a>
+      <a class="nav-item" href="#/tax" data-nav="tax"><span class="icon">🏛</span>Tax &amp; Compliance</a>
+      <a class="nav-item" href="#/reports" data-nav="reports"><span class="icon">📊</span>Reports</a>
+
+      <div class="nav-group">System</div>
+      <a class="nav-item" href="#/integrations" data-nav="integrations"><span class="icon">🔌</span>Integrations</a>
+      <a class="nav-item" href="#/search" data-nav="search"><span class="icon">⌕</span>Global Search</a>
+      <a class="nav-item" href="#/notifications" data-nav="notifications"><span class="icon">🔔</span>Notifications</a>
+      <a class="nav-item" href="#/settings-profile" data-nav="settings-profile"><span class="icon">⚙</span>Settings — Profile</a>
+      <a class="nav-item" href="#/settings-workspace" data-nav="settings-workspace"><span class="icon">🏠</span>Settings — Workspace</a>
+      <a class="nav-item" href="#/settings-team" data-nav="settings-team"><span class="icon">🛡</span>Settings — Team &amp; Roles</a>
+      <a class="nav-item" href="#/settings-billing" data-nav="settings-billing"><span class="icon">💎</span>Settings — Billing</a>
+
+      <div class="nav-group">Public &amp; states</div>
+      <a class="nav-item" href="#/landing" data-nav="landing"><span class="icon">🌐</span>Landing Page</a>
+      <a class="nav-item" href="#/pricing" data-nav="pricing"><span class="icon">🏷</span>Pricing</a>
+      <a class="nav-item" href="#/signin" data-nav="signin"><span class="icon">🔑</span>Sign In</a>
+      <a class="nav-item" href="#/signup" data-nav="signup"><span class="icon">✎</span>Sign Up</a>
+      <a class="nav-item" href="#/verify" data-nav="verify"><span class="icon">✉</span>Verify Email</a>
+      <a class="nav-item" href="#/reset" data-nav="reset"><span class="icon">↺</span>Reset Password</a>
+      <a class="nav-item" href="#/onboarding" data-nav="onboarding"><span class="icon">🚀</span>Onboarding</a>
+      <a class="nav-item" href="#/states" data-nav="states"><span class="icon">▢</span>Empty States</a>
+      <a class="nav-item" href="#/notfound" data-nav="notfound"><span class="icon">404</span>404 Page</a>
+      <a class="nav-item" href="#/maintenance" data-nav="maintenance"><span class="icon">🛠</span>Maintenance</a>
+    </nav>
+
+    <div class="sidebar-foot">
+      <div class="flex items-center gap-2">
+        <span class="avatar" style="background:#10b981">DW</span>
+        <div class="grow" style="min-width:0">
+          <div class="font-semibold text-sm" style="white-space:nowrap">Dana Whitfield</div>
+          <div class="text-sm text-3">CFO · Owner</div>
+        </div>
+        <button class="btn btn-ghost btn-icon btn-sm" id="theme-toggle" aria-label="Toggle color theme">◐</button>
+      </div>
+      <div class="text-sm text-3 mt-2">October close · <a href="#/reports">6 of 8 tasks</a></div>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="main">
+    <header class="topbar">
+      <button class="btn btn-ghost btn-icon" id="nav-toggle" aria-label="Toggle navigation">☰</button>
+      <div class="crumbs" style="min-width:0">
+        <h1 id="crumb-title">Command Center</h1>
+        <span class="sep">/</span><span id="crumb-sub">Real-time cash, revenue and payables</span>
+      </div>
+      <input class="input topbar-search" id="topbar-search" type="search" placeholder="Search invoices, bills, vendors…  ( / )" aria-label="Search">
+      <span class="badge badge-ai hide-sm">✦ AI on</span>
+      <span class="badge badge-neutral hide-md" id="today-label">Tue, Nov 11, 2026</span>
+      <button class="btn btn-primary btn-sm hide-sm" id="new-invoice-btn">＋ New invoice</button>
+      <a class="icon-btn" href="#/notifications" aria-label="Notifications">🔔<span class="dot"></span></a>
+    </header>
+
+    <main class="content" id="app" tabindex="-1"></main>
+  </div>
+</div>
+
+<div id="toast-root" aria-live="polite"></div>
+
+<script src="js/data.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/components.js"></script>
+<script src="js/screens-a.js"></script>
+<script src="js/screens-b.js"></script>
+<script src="js/screens-c.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
