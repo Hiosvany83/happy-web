@@ -1,0 +1,65 @@
+/* ============================================================
+   AgentDesk — Responsive
+   Desktop 1440 (default) · Tablet 1024 · Mobile 390.
+   The same screens adapt; no separate mobile pages.
+   ============================================================ */
+
+/* ---------- Tablet (<=1100px) ---------- */
+@media (max-width: 1100px) {
+  .stat-grid { grid-template-columns: repeat(3, 1fr); }
+  .grid-5 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .col-8-4, .col-7-5, .col-3-2 { grid-template-columns: 1fr; }
+  .span-2, .span-3 { grid-column: span 1; }
+  .sidebar { width: var(--sidebar-w-collapsed); }
+  .sidebar .brand-name, .sidebar .brand-sub, .sidebar .nav-item span.nav-label,
+  .sidebar .nav-section, .sidebar .nav-item .nav-count, .sidebar .ws-switcher .ws-name,
+  .sidebar .ws-switcher .ws-plan, .sidebar-foot .ai-usage, .sidebar .ws-switcher .ws-caret { display: none; }
+  .sidebar .nav-item { justify-content: center; padding: 10px 0; }
+  .sidebar .brand { justify-content: center; padding: 16px 0 12px; }
+  .sidebar .ws-switcher { justify-content: center; padding: 8px 0; }
+  .feature-grid { grid-template-columns: repeat(2, 1fr); }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 460px; }
+  .marketing-hero h1 { font-size: 40px; }
+  .kanban { grid-template-columns: repeat(2, minmax(240px, 1fr)); }
+}
+
+/* ---------- Mobile (<=768px) ---------- */
+@media (max-width: 768px) {
+  .sidebar { position: fixed; left: 0; transform: translateX(-100%); transition: transform .25s ease; width: var(--sidebar-w); box-shadow: var(--shadow-lg); }
+  .sidebar.open { transform: none; }
+  .sidebar .brand-name, .sidebar .brand-sub, .sidebar .nav-item span.nav-label,
+  .sidebar .nav-section, .sidebar .nav-item .nav-count, .sidebar .ws-switcher .ws-name,
+  .sidebar .ws-switcher .ws-plan, .sidebar-foot .ai-usage, .sidebar .ws-switcher .ws-caret { display: revert; }
+  .sidebar .nav-item { justify-content: flex-start; padding: 8px 10px; }
+  .sidebar .brand { justify-content: flex-start; padding: 18px 18px 14px; }
+  .sidebar .ws-switcher { justify-content: flex-start; padding: 9px 10px; }
+  .hamburger { display: inline-flex !important; }
+  .content { padding: var(--space-4); }
+  .topbar { padding: 0 var(--space-4); }
+  .topbar .crumbs { display: none; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .grid-2, .grid-3, .grid-4, .grid-5 { grid-template-columns: 1fr; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .marketing-hero h1 { font-size: 32px; }
+  .marketing-hero { padding: var(--space-10) var(--space-4) var(--space-8); }
+  .marketing-nav .links { display: none; }
+  .kanban { grid-template-columns: 1fr; }
+  .search-input { width: 140px; }
+  .page-head h1 { font-size: 20px; }
+  .hide-mobile { display: none !important; }
+  .modal { max-width: 100%; }
+  .stat-card .stat-spark { display: none; }
+}
+
+/* ---------- Small mobile (<=480px) ---------- */
+@media (max-width: 480px) {
+  .stat-grid { grid-template-columns: 1fr; }
+  .btn-lg { width: 100%; }
+  .hero-cta { flex-direction: column; }
+  .topbar-actions .btn span.btn-label { display: none; }
+}
+
+/* Hamburger is hidden on desktop by default */
+.hamburger { display: none; }

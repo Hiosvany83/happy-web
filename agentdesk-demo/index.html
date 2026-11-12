@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgentDesk — AI Support &amp; Agent Operations Dashboard</title>
+<meta name="description" content="AgentDesk is a coded HTML/CSS/JS dashboard template for AI support operations: agent fleet, triage, copilot, SLA, analytics. 37 screens, light + dark, design tokens included. HTML/CSS/JS only — no Figma file included.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<div class="app" id="app">
+  <!-- ============ Sidebar ============ -->
+  <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="brand">
+      <span class="brand-mark">✦</span>
+      <div><div class="brand-name">Agent<span>Desk</span></div><div class="brand-sub">AI Support Ops</div></div>
+    </div>
+    <button class="ws-switcher" onclick="toast('Workspace switcher is a demo action in this template','info')">
+      <span class="ws-logo">H</span>
+      <span class="ws-name grow" style="text-align:left">Halcyon</span>
+      <span class="ws-plan badge badge-ai">Scale</span>
+      <span class="ws-caret text-3">▾</span>
+    </button>
+    <nav class="nav" id="main-nav">
+      <div class="nav-section">Overview</div>
+      <a class="nav-item" data-route="overview" href="#/overview"><span class="nav-icon">▦</span><span class="nav-label">Command Center</span></a>
+      <a class="nav-item" data-route="fleet" href="#/fleet"><span class="nav-icon">🤖</span><span class="nav-label">AI Agent Fleet</span><span class="nav-count ai">6</span></a>
+      <a class="nav-item" data-route="analytics-support" href="#/analytics/support"><span class="nav-icon">📊</span><span class="nav-label">Analytics — Support</span></a>
+      <a class="nav-item" data-route="analytics-ai" href="#/analytics/ai"><span class="nav-icon">◈</span><span class="nav-label">Analytics — AI</span></a>
+
+      <div class="nav-section">Support</div>
+      <a class="nav-item" data-route="inbox" href="#/inbox"><span class="nav-icon">📥</span><span class="nav-label">Inbox</span><span class="nav-count" id="nav-open-count">27</span></a>
+      <a class="nav-item" data-route="triage" href="#/triage"><span class="nav-icon">⚙</span><span class="nav-label">AI Triage &amp; Automation</span></a>
+      <a class="nav-item" data-route="playground" href="#/playground"><span class="nav-icon">✦</span><span class="nav-label">AI Copilot Playground</span></a>
+      <a class="nav-item" data-route="sla" href="#/sla"><span class="nav-icon">⏱</span><span class="nav-label">SLA &amp; Escalations</span><span class="nav-count" style="background:var(--danger-600)" id="nav-sla-count">9</span></a>
+
+      <div class="nav-section">Knowledge</div>
+      <a class="nav-item" data-route="kb" href="#/kb"><span class="nav-icon">📚</span><span class="nav-label">Knowledge Base</span></a>
+      <a class="nav-item" data-route="macros" href="#/macros"><span class="nav-icon">✂</span><span class="nav-label">Macros &amp; Responses</span></a>
+      <a class="nav-item" data-route="workflows" href="#/workflows"><span class="nav-icon">🔀</span><span class="nav-label">Workflows</span></a>
+      <a class="nav-item" data-route="channels" href="#/channels"><span class="nav-icon">📡</span><span class="nav-label">Channels</span></a>
+
+      <div class="nav-section">Customers</div>
+      <a class="nav-item" data-route="customers" href="#/customers"><span class="nav-icon">🏢</span><span class="nav-label">Customers</span></a>
+      <a class="nav-item" data-route="teams" href="#/teams"><span class="nav-icon">👥</span><span class="nav-label">Teams &amp; Agents</span></a>
+      <a class="nav-item" data-route="csat" href="#/csat"><span class="nav-icon">★</span><span class="nav-label">CSAT &amp; Feedback</span></a>
+      <a class="nav-item" data-route="reports" href="#/reports"><span class="nav-icon">📄</span><span class="nav-label">Reports &amp; Exports</span></a>
+
+      <div class="nav-section">Settings</div>
+      <a class="nav-item" data-route="settings-workspace" href="#/settings/workspace"><span class="nav-icon">🏠</span><span class="nav-label">Workspace</span></a>
+      <a class="nav-item" data-route="settings-ai" href="#/settings/ai"><span class="nav-icon">🧠</span><span class="nav-label">AI Models &amp; Providers</span></a>
+      <a class="nav-item" data-route="settings-roles" href="#/settings/roles"><span class="nav-icon">🔑</span><span class="nav-label">Roles &amp; Permissions</span></a>
+      <a class="nav-item" data-route="settings-billing" href="#/settings/billing"><span class="nav-icon">💳</span><span class="nav-label">Billing &amp; Plan Usage</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="ai-usage">
+        <div class="row"><span>✦ AI credits this cycle</span><b>74%</b></div>
+        <div class="progress ai"><i style="width:74%"></i></div>
+        <div class="row" style="margin-top:8px;margin-bottom:0"><span class="text-xs text-3">18.42M / 25M tokens · $1,842</span></div>
+      </div>
+      <a class="nav-item" href="#/landing" style="margin-top:8px"><span class="nav-icon">🌐</span><span class="nav-label">View landing page</span></a>
+    </div>
+  </aside>
+
+  <!-- ============ Main column ============ -->
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn hamburger" id="hamburger" aria-label="Toggle menu" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+      <div class="crumbs" id="crumbs">AgentDesk <span class="text-4">/</span> <b id="crumb-current">Command Center</b></div>
+      <div class="topbar-actions">
+        <button class="btn btn-secondary btn-sm" onclick="openCmdk()" style="gap:6px">⌕ <span class="btn-label">Search</span> <span class="kbd">⌘K</span></button>
+        <button class="icon-btn" id="theme-toggle" aria-label="Toggle light / dark theme" title="Toggle light / dark theme">☾</button>
+        <a class="icon-btn" href="#/notifications" aria-label="Notifications" title="Notifications">🔔<span class="ping"></span></a>
+        <button class="btn btn-secondary btn-sm hide-mobile" onclick="ADNewTicket()">+ New ticket</button>
+        <span class="avatar" style="background:#6366f1" title="Mara Jensen — Support Lead">MJ</span>
+      </div>
+    </header>
+    <main class="content" id="screen" aria-live="polite"></main>
+  </div>
+</div>
+
+<!-- Overlays -->
+<div id="cmdk-root"></div>
+<div id="toast-root" aria-live="polite"></div>
+
+<script src="js/data.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/components.js"></script>
+<script src="js/screens-a.js"></script>
+<script src="js/screens-b.js"></script>
+<script src="js/screens-c.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
