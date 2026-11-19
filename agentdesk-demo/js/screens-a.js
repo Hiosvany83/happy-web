@@ -7,7 +7,7 @@
 const ScreensA = (() => {
   const { DATA, fmt, avatarColor } = window.AD;
   const { esc, badge, statusBadge, priorityBadge, channelBadge, sentimentBadge, confidenceBadge,
-    avatarHtml, avatarStack, statCard, progressBar, slaTimer, toggleInput, sectionCard,
+    avatarHtml, avatarStack, statCard, heroBand, progressBar, slaTimer, toggleInput, sectionCard,
     dataTable, emptyState, copilotPanel, legend } = window.AD;
   const { svgLine, svgLineDual, svgBars, svgDonut, svgGauge, sparkline } = window.ADCharts;
   const M = DATA.metrics;
@@ -32,6 +32,11 @@ const ScreensA = (() => {
     return pageHead("Command Center", "Friday, Nov 8, 2026 · Live queue · All times UTC", `
       <button class="btn btn-secondary" onclick="toast('Queue refreshed — 0 new tickets since 14:52','success')">↻ Refresh</button>
       <button class="btn" onclick="ADNewTicket()">+ New ticket</button>`) + `
+    ${heroBand({ label: "Tickets resolved — last 14 days", value: fmt.num(M.totalResolved14), sub: M.aiRate + "% resolved by AI agents · " + M.openTickets + " still open · " + M.slaRisk + " at SLA risk right now", minis: [
+      { value: M.aiRate + "%", label: "AI resolution rate" },
+      { value: M.csat.toFixed(1) + " / 5", label: "CSAT" },
+      { value: fmt.money(M.aiCost), label: "AI cost this cycle" }
+    ], spark: S.resolved, sparkLabel: "Resolved per day" })}
     <div class="stat-grid mb-4">
       ${statCard({ label: "Open tickets", value: M.openTickets, delta: "8% vs last week", deltaDir: "down", deltaGood: true, sub: "of " + M.totalTickets + " in queue", spark: S.received.slice(-7), icon: "📥" })}
       ${statCard({ label: "SLA at risk", value: M.slaRisk, delta: "1 breached", deltaDir: "down", sub: "96.4% compliance", spark: [6, 8, 5, 7, 9, 6, 7], accent: "#f59e0b", icon: "⏱" })}
@@ -115,6 +120,11 @@ const ScreensA = (() => {
     return pageHead("AI Agent Fleet", "6 AI agents · " + M.aiTasks + " tasks today · " + fmt.money(M.aiCost) + " AI cost", `
       <button class="btn btn-secondary" onclick="toast('Fleet health check passed — all agents responding','success')">Run health check</button>
       <button class="btn" onclick="toast('Agent builder is a demo action in this template','info')">+ New AI agent</button>`) + `
+    ${heroBand({ label: "AI tasks completed today", value: fmt.num(M.aiTasks), sub: "Across 6 agents · " + M.aiEscalations + " escalations (" + M.escRate + "%) · guardrail is 15%", minis: [
+      { value: "91%", label: "Avg confidence" },
+      { value: fmt.tokens(M.tokensTotal), label: "Tokens today" },
+      { value: fmt.money(M.aiCost), label: "AI cost" }
+    ] })}
     <div class="stat-grid mb-4">
       ${statCard({ label: "Active agents", value: DATA.aiAgents.filter(a => a.status !== "paused").length + " / 6", sub: "1 escalated (Pax)", icon: "🤖" })}
       ${statCard({ label: "Tasks today", value: fmt.num(M.aiTasks), delta: "12% vs yesterday", deltaDir: "up", sub: "across all agents", icon: "⚡" })}
@@ -591,6 +601,11 @@ Open a ticket from the help center and reference this article — the AI copilot
     return pageHead("Analytics — Support performance", "Last 14 days · " + DATA.meta.weekLabel, `
       <select class="select" style="width:170px"><option>Last 14 days</option><option>Last 30 days</option><option>Last 90 days</option></select>
       <button class="btn btn-secondary" onclick="toast('Report export started','success')">Export</button>`) + `
+    ${heroBand({ label: "Average first response", value: M.firstResponseMin + " min", sub: "Target: under 5 min · resolution averages " + M.resolutionH + " h · backlog is falling for 3 weeks", minis: [
+      { value: fmt.num(M.totalResolved14), label: "Resolved (14d)" },
+      { value: M.slaCompliance + "%", label: "SLA compliance" },
+      { value: M.csat.toFixed(1) + " / 5", label: "CSAT" }
+    ], spark: S.firstResponseMin, sparkLabel: "First response (min)" })}
     <div class="stat-grid mb-4">
       ${statCard({ label: "First response", value: M.firstResponseMin + " min", delta: "0.4 min faster", deltaDir: "up", sub: "target: under 5 min", icon: "⚡" })}
       ${statCard({ label: "Avg resolution", value: M.resolutionH + " h", delta: "0.6 h faster", deltaDir: "up", sub: "target: under 8 h", icon: "✓" })}
@@ -625,6 +640,11 @@ Open a ticket from the help center and reference this article — the AI copilot
     return pageHead("Analytics — AI performance", "Automation, escalation and cost — last 14 days", `
       <select class="select" style="width:170px"><option>Last 14 days</option><option>Last 30 days</option></select>
       <button class="btn btn-secondary" onclick="toast('AI report export started','success')">Export</button>`) + `
+    ${heroBand({ label: "AI cost — last 14 days", value: fmt.money(M.aiCost), sub: fmt.tokens(M.tokensTotal) + " tokens at $0.10 / 1K · 74% of the 25M plan allowance · automation rate " + M.aiRate + "%", minis: [
+      { value: M.aiRate + "%", label: "Automation rate" },
+      { value: "91%", label: "Avg confidence" },
+      { value: M.escRate + "%", label: "Escalation rate" }
+    ], spark: S.tokensM, sparkLabel: "Tokens per day (M)" })}
     <div class="stat-grid mb-4">
       ${statCard({ label: "Automation rate", value: M.aiRate + "%", delta: "4 pts vs last week", deltaDir: "up", sub: fmt.num(M.aiResolved14) + " of " + fmt.num(M.totalResolved14) + " resolved", icon: "✦" })}
       ${statCard({ label: "Escalation rate", value: M.escRate + "%", delta: "guardrail 15%", deltaDir: "down", sub: M.aiEscalations + " escalations today", icon: "⬆" })}

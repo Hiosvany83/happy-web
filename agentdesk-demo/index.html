@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AgentDesk — AI Support &amp; Agent Operations Dashboard</title>
-<meta name="description" content="AgentDesk is a coded HTML/CSS/JS dashboard template for AI support operations: agent fleet, triage, copilot, SLA, analytics. 37 screens, light + dark, design tokens included. HTML/CSS/JS only — no Figma file included.">
+<meta name="description" content="AgentDesk is a coded HTML/CSS/JS dashboard template for AI support operations: agent fleet, triage, copilot console, SLA, analytics, a full in-product style guide and loading states. 40 screens, light + dark, design tokens included. HTML/CSS/JS only — no Figma file included.">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/components.css">
@@ -41,6 +41,7 @@
       <a class="nav-item" data-route="inbox" href="#/inbox"><span class="nav-icon">📥</span><span class="nav-label">Inbox</span><span class="nav-count" id="nav-open-count">27</span></a>
       <a class="nav-item" data-route="triage" href="#/triage"><span class="nav-icon">⚙</span><span class="nav-label">AI Triage &amp; Automation</span></a>
       <a class="nav-item" data-route="playground" href="#/playground"><span class="nav-icon">✦</span><span class="nav-label">AI Copilot Playground</span></a>
+      <a class="nav-item" data-route="console" href="#/console"><span class="nav-icon">🖥</span><span class="nav-label">Copilot Console</span><span class="nav-count ai">Live</span></a>
       <a class="nav-item" data-route="sla" href="#/sla"><span class="nav-icon">⏱</span><span class="nav-label">SLA &amp; Escalations</span><span class="nav-count" style="background:var(--danger-600)" id="nav-sla-count">9</span></a>
 
       <div class="nav-section">Knowledge</div>
@@ -60,6 +61,10 @@
       <a class="nav-item" data-route="settings-ai" href="#/settings/ai"><span class="nav-icon">🧠</span><span class="nav-label">AI Models &amp; Providers</span></a>
       <a class="nav-item" data-route="settings-roles" href="#/settings/roles"><span class="nav-icon">🔑</span><span class="nav-label">Roles &amp; Permissions</span></a>
       <a class="nav-item" data-route="settings-billing" href="#/settings/billing"><span class="nav-icon">💳</span><span class="nav-label">Billing &amp; Plan Usage</span></a>
+
+      <div class="nav-section">Design System</div>
+      <a class="nav-item" data-route="styleguide" href="#/styleguide"><span class="nav-icon">🎨</span><span class="nav-label">Style Guide</span></a>
+      <a class="nav-item" data-route="loading" href="#/loading"><span class="nav-icon">◌</span><span class="nav-label">Loading States</span></a>
     </nav>
     <div class="sidebar-foot">
       <div class="ai-usage">

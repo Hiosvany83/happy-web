@@ -62,6 +62,17 @@ function statCard(o) {
   </div>`;
 }
 
+/* ---------- Hero stat band (one hero number per main screen) ---------- */
+function heroBand(o) {
+  // o: {value, label, sub, minis:[{value, label}], spark:[numbers], accent}
+  const minis = (o.minis || []).map(m => `<div class="hero-mini"><div class="mini-value">${m.value}</div><div class="mini-label">${esc(m.label)}</div></div>`).join("");
+  const spark = o.spark ? `<div class="hero-mini">${sparkline(o.spark, { color: o.accent || "#14b8a6", w: 150, h: 44 })}<div class="mini-label">${esc(o.sparkLabel || "Last 14 days")}</div></div>` : "";
+  return `<div class="hero-band">
+    <div><div class="hero-label">${esc(o.label)}</div><div class="hero-value">${o.value}</div><div class="hero-sub">${esc(o.sub || "")}</div></div>
+    ${minis || spark ? `<div class="hero-side">${minis}${spark}</div>` : ""}
+  </div>`;
+}
+
 /* ---------- Progress / meters ---------- */
 function progressBar(pct, kind = "") {
   return `<div class="progress ${kind}"><i style="width:${Math.max(0, Math.min(100, pct))}%"></i></div>`;
@@ -218,7 +229,7 @@ function kbd(keys) { return `<span class="kbd">${esc(keys)}</span>`; }
 if (typeof window !== "undefined") {
   window.AD = Object.assign(window.AD || {}, {
     esc, badge, statusBadge, priorityBadge, channelBadge, sentimentBadge, confidenceBadge,
-    avatarHtml, avatarStack, statCard, progressBar, slaTimer, toggleInput, fieldHtml,
+    avatarHtml, avatarStack, statCard, heroBand, progressBar, slaTimer, toggleInput, fieldHtml,
     sectionCard, dataTable, renderTablePage, openModal, closeModal, openDrawer, closeDrawer,
     toast, emptyState, copilotPanel, legend, kbd, tables: {}
   });

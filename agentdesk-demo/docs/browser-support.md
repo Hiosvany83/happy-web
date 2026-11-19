@@ -15,9 +15,9 @@ Notes:
 
 - **CSS custom properties** drive the entire theme system — any browser
   without them cannot render the template.
-- **Google Fonts (Inter)** is loaded from `fonts.googleapis.com` with a
-  system-font fallback. Offline, the template falls back to the system
-  stack and still renders correctly.
+- **Google Fonts (Inter, Space Grotesk, JetBrains Mono)** are loaded from
+  `fonts.googleapis.com` with system-font fallbacks. Offline, the template
+  falls back to the system stack and still renders correctly.
 - **localStorage** remembers the light/dark choice. On `file://` URLs
   some browsers restrict it; serve over HTTP for the full experience
   (see `getting-started.md`).

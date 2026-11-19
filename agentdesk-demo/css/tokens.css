@@ -69,16 +69,24 @@
   --chart-5: #f472b6;
   --chart-6: #a78bfa;
 
-  /* ---- Typography ---- */
+  /* ---- Typography ----
+     Two voices: Space Grotesk (display) for headlines, page titles,
+     stat values and hero numerals — the product's character — and
+     Inter for UI/body text. JetBrains Mono for numbers, timers, IDs.
+     Type scale (6 steps): 11 · 12.5 · 14 · 20 · 30 · 46 (hero).
+     The steps in between (16, 24) exist for dense UI sub-titles. */
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Space Grotesk", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --text-xs: 11px;
-  --text-sm: 12.5px;
-  --text-base: 14px;
-  --text-lg: 16px;
-  --text-xl: 20px;
-  --text-2xl: 24px;
-  --text-3xl: 30px;
+  --text-xs: 11px;      /* step 1 — micro labels, table headers */
+  --text-sm: 12.5px;    /* step 2 — secondary UI text */
+  --text-base: 14px;    /* step 3 — body text */
+  --text-lg: 16px;      /* dense UI sub-titles */
+  --text-xl: 20px;      /* step 4 — card & section titles */
+  --text-2xl: 24px;     /* page titles */
+  --text-3xl: 30px;     /* step 5 — display headings, stat values */
+  --text-display: 38px; /* large display headings */
+  --text-hero: 46px;    /* step 6 — hero numerals (one per screen) */
   --leading-tight: 1.2;
   --leading-normal: 1.45;
   --leading-relaxed: 1.65;

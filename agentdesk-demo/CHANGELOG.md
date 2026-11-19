@@ -1,5 +1,19 @@
 # Changelog — AgentDesk
 
+## 1.5.0 — Nov 19, 2026
+
+Presentation & design-system release — the template now shows its system, not just its screens:
+
+- **In-product Style Guide** (`#/styleguide`, new screen): color tokens, the type scale, spacing, radii, shadows and the component library with states (default / hover / focus / disabled / empty / error), rendered live by the shipping CSS.
+- **Loading States** (`#/loading`, new screen): three skeleton compositions (dashboard, table, ticket detail) built with the `.skeleton` class, each matched to the layout it replaces.
+- **Copilot Console** (`#/console`, new screen): a full-screen, non-dashboard stage — agents on shift, live activity feed, working prompt composer with streaming output, run telemetry and guardrails.
+- **Typography:** Space Grotesk display font for headlines and numerals (Inter stays for UI; JetBrains Mono now actually loaded); a documented six-step type scale with a true 46px hero size.
+- **Hero numbers:** Command Center, AI Agent Fleet, both Analytics screens, SLA and CSAT each lead with one hero figure in the new `.hero-band` component — no more flat hierarchy.
+- **Product landing page:** the demo now opens on a product page (hero, 8-image gallery, six features, full screen inventory, $79 price block) with the app one click away; deep links unchanged.
+- **Presentation pack:** `presentation/` — 8 images at 1600×1200 with browser device frames.
+- New components: hero band, skeleton compositions, form error/disabled states, console stage. Screen count: **40**.
+- Nav: Copilot Console (Support) and a Design System section (Style Guide, Loading States); command palette updated.
+
 ## 1.4.1 — Nov 8, 2026
 
 - Fixed stat-card layout (sparkline no longer overlaps delta/sub text);

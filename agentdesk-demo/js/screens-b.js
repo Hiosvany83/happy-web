@@ -7,7 +7,7 @@
 const ScreensB = (() => {
   const { DATA, fmt, avatarColor } = window.AD;
   const { esc, badge, statusBadge, priorityBadge, channelBadge, sentimentBadge, confidenceBadge,
-    avatarHtml, avatarStack, statCard, progressBar, slaTimer, toggleInput, fieldHtml, sectionCard,
+    avatarHtml, avatarStack, statCard, heroBand, progressBar, slaTimer, toggleInput, fieldHtml, sectionCard,
     dataTable, openModal, closeModal, openDrawer, closeDrawer, toast, emptyState, copilotPanel,
     legend, kbd } = window.AD;
   const { svgLine, svgLineDual, svgBars, svgDonut, svgGauge, sparkline } = window.ADCharts;
@@ -24,16 +24,16 @@ const ScreensB = (() => {
   function marketingNav() {
     return `<div class="marketing-nav">
       <a href="#/landing" class="flex items-center gap-2 font-bold text-lg"><span class="ai-chip">✦</span> AgentDesk</a>
-      <div class="links"><a href="#/landing">Features</a><a href="#/pricing">Pricing</a><a href="#/kb">Docs</a></div>
+      <div class="links"><a href="#/overview">Live demo</a><a href="#/styleguide">Style Guide</a><a href="#/pricing">Pricing</a><a href="#/kb">Docs</a></div>
       <div style="margin-left:auto" class="flex gap-2">
-        <a href="#/auth/signin" class="btn btn-ghost btn-sm">Sign in</a>
-        <a href="#/auth/signup" class="btn btn-sm">Get started</a>
+        <a href="#/overview" class="btn btn-ghost btn-sm">Live demo</a>
+        <a href="https://ko-fi.com/s/c9bf726fce/" target="_blank" rel="noopener" class="btn btn-sm">Get AgentDesk — $79</a>
       </div>
     </div>`;
   }
 
   function marketingFoot() {
-    return `<div class="marketing-foot">AgentDesk · AI support operations · <a href="#/pricing">Pricing</a> · <a href="#/kb">Docs</a> · <a href="#/auth/signin">Sign in</a><br><span class="text-sm">Fictional demo template — all data on this page is invented.</span></div>`;
+    return `<div class="marketing-foot">AgentDesk · Coded HTML/CSS/JS template · <a href="#/overview">Live demo</a> · <a href="#/styleguide">Style Guide</a> · <a href="#/pricing">Pricing</a> · <a href="#/kb">Docs</a><br><span class="text-sm">Fictional demo template — all data on this page is invented.</span></div>`;
   }
 
   /* ============ 15. SLA & Escalations ============ */
@@ -55,6 +55,11 @@ const ScreensB = (() => {
     return pageHead("SLA & Escalations", "Policies by plan · " + M.slaRisk + " tickets at risk · " + M.slaCompliance + "% compliance this cycle", `
       <button class="btn btn-secondary" onclick="toast('SLA report export started','success')">Export SLA report</button>
       <button class="btn" onclick="toast('New SLA policy draft created','success')">+ New policy</button>`) + `
+    ${heroBand({ label: "SLA compliance this cycle", value: M.slaCompliance + "%", sub: "Target: 95%+ · " + M.slaRisk + " tickets inside their window right now · " + breached + " already breached", minis: [
+      { value: M.slaRisk, label: "At risk" },
+      { value: totalBreaches, label: "Breaches this cycle" },
+      { value: M.firstResponseMin + " min", label: "Avg first response" }
+    ] })}
     <div class="stat-grid mb-4">
       ${statCard({ label: "SLA compliance", value: M.slaCompliance + "%", delta: "1.2 pts up", deltaDir: "up", sub: "target: 95%+", icon: "⏱" })}
       ${statCard({ label: "Tickets at risk", value: M.slaRisk, delta: "1 breached", deltaDir: "down", deltaGood: false, sub: "sorted by SLA clock below", icon: "⚠", accent: "#f59e0b" })}
@@ -225,6 +230,11 @@ const ScreensB = (() => {
     const stars = n => "★".repeat(n) + "☆".repeat(5 - n);
     return pageHead("CSAT & Feedback", "What customers say after a ticket is solved — " + DATA.feedback.length + " surveys in the last 30 days", `
       <button class="btn btn-secondary" onclick="toast('Feedback export started — CSV will arrive by email','success')">Export feedback</button>`) + `
+    ${heroBand({ label: "Customer satisfaction", value: M.csat.toFixed(1) + " / 5", sub: "Average across " + DATA.feedback.length + " surveys in the last 30 days · target 4.5 / 5 · NPS " + M.nps, minis: [
+      { value: M.nps, label: "NPS" },
+      { value: dist[0].count + " / " + DATA.feedback.length, label: "5-star surveys" },
+      { value: DATA.feedback.filter(f => f.rating <= 2).length, label: "Low ratings (≤ 2)" }
+    ] })}
     <div class="stat-grid mb-4">
       ${statCard({ label: "CSAT", value: M.csat.toFixed(1) + " / 5", delta: "0.2 vs last month", deltaDir: "up", sub: "avg of " + DATA.feedback.length + " surveys", icon: "★" })}
       ${statCard({ label: "NPS", value: M.nps, delta: "4 pts vs last month", deltaDir: "up", sub: "promoters minus detractors", icon: "♥" })}
@@ -683,46 +693,72 @@ const ScreensB = (() => {
     </div></div></div>`;
   }
 
-  /* ============ 34. Landing page ============ */
+  /* ============ 34. Landing page — the template's product page ============
+     This is the demo's entry point: it sells the TEMPLATE (coded
+     HTML/CSS/JS, $79), shows the presentation pack, and routes
+     reviewers into the live app — instead of dropping them,
+     context-free, into a dashboard. */
   function landing() {
     const features = [
-      { icon: "✦", title: "AI Copilot", text: "Drafts replies grounded in your knowledge base, with confidence scores and sources on every suggestion." },
-      { icon: "⚙", title: "Smart triage", text: "Routes, tags and escalates tickets before a human sees them — with rules you control." },
-      { icon: "🤖", title: "Agent fleet", text: "Six AI agents with roles, languages and guardrails, working alongside your human team." },
-      { icon: "📊", title: "Live analytics", text: "First response, resolution, AI cost and CSAT — reconciled from one dataset, updated daily." },
-      { icon: "📚", title: "Knowledge base", text: "Articles that deflect chats and keep the AI accurate, with AI drafts ready to review." },
-      { icon: "⏱", title: "SLA guardrails", text: "Policies by plan, at-risk alerts and an on-call rota that keeps breaches rare." }
+      { icon: "✦", title: "A working AI copilot", text: "Copilot panel on the ticket, a full-screen Copilot Console and a Playground with streaming output, confidence scores and grounded sources on every suggestion." },
+      { icon: "🎨", title: "Style guide inside the product", text: "Tokens, the six-step type scale and 60+ components with their states — default, hover, focus, disabled, error — documented live, in the app itself." },
+      { icon: "🗂", title: "Real data tables", text: "Sortable, filterable, paginated tables driven by one fictional dataset, so every KPI, chart and total reconciles across all 40 screens." },
+      { icon: "◌", title: "Loading & empty states", text: "Skeleton compositions matched 1:1 to the layouts they replace, plus three empty states with their own copy and calls to action." },
+      { icon: "☾", title: "Light + dark, dark-first", text: "Two full themes, each with its own design tokens, switched from the topbar and remembered across visits. Space Grotesk display type gives it a voice." },
+      { icon: "⚡", title: "Zero dependencies", text: "Vanilla HTML, CSS and JavaScript. Hand-rolled SVG charts, a Cmd+K command palette, no framework and no build step — open index.html and it runs." }
+    ];
+    const shots = [
+      { img: "presentation/01-hero.png", name: "Command Center", route: "#/overview", note: "Light theme · hero stat band" },
+      { img: "presentation/02-copilot.png", name: "Ticket + AI Copilot", route: "#/ticket/AD-1042", note: "Summary, replies, sources" },
+      { img: "presentation/03-playground.png", name: "Copilot Playground", route: "#/playground", note: "Model, temperature, token meter" },
+      { img: "presentation/04-table.png", name: "Customers table", route: "#/customers", note: "Sort · filter · paginate" },
+      { img: "presentation/05-dark-mode.png", name: "Command Center — dark", route: "#/overview", note: "Dark-first theme" },
+      { img: "presentation/06-style-guide.png", name: "Style Guide", route: "#/styleguide", note: "Tokens & components, in-product" },
+      { img: "presentation/07-loading.png", name: "Loading States", route: "#/loading", note: "Three skeleton compositions" },
+      { img: "presentation/08-console.png", name: "Copilot Console", route: "#/console", note: "The whole fleet on one stage" }
+    ];
+    const inside = [
+      ["Command", "Command Center · AI Agent Fleet · Agent detail · Support analytics · AI analytics"],
+      ["Support", "Inbox · Ticket detail · Triage & Automation · Copilot Playground · Copilot Console · SLA & Escalations"],
+      ["Knowledge & customers", "Knowledge Base · Article editor · Macros · Workflows · Channels · Customers · Customer 360 · Teams & Agents · CSAT · Reports"],
+      ["System", "4 Settings screens · Search · Notifications · Style Guide · Loading States · 3 empty states"],
+      ["Pages", "Landing · Pricing · Onboarding wizard · Sign in · Sign up · Forgot password · 404 · Maintenance"]
     ];
     return `<div class="page-full" style="display:block">
     ${marketingNav()}
     <div class="marketing-hero">
-      <span class="badge badge-ai">✦ AI support operations</span>
-      <h1>Support that runs itself</h1>
-      <p>AgentDesk triages, answers and escalates customer tickets with AI agents your team controls — so humans only handle the conversations that need them.</p>
+      <span class="badge badge-ai">✦ Coded template · HTML / CSS / JS · No Figma · No build step</span>
+      <h1>The AI support dashboard, as launch-ready code.</h1>
+      <p>AgentDesk is a complete operations dashboard for support teams that run AI agents — agent fleet, triage, copilot, SLA and analytics — built as plain HTML, CSS and JavaScript you can ship today.</p>
       <div class="hero-cta flex gap-2 justify-center mt-4" style="flex-wrap:wrap">
-        <a href="#/auth/signup" class="btn btn-lg">Get started free</a>
-        <a href="#/pricing" class="btn btn-secondary btn-lg">See pricing</a>
+        <a href="#/overview" class="btn btn-lg">▶ Live demo</a>
+        <a href="https://ko-fi.com/s/c9bf726fce/" target="_blank" rel="noopener" class="btn btn-secondary btn-lg">Get AgentDesk — $79</a>
       </div>
       <div class="flex gap-6 justify-center mt-6 text-sm" style="flex-wrap:wrap">
-        <span><b>${M.aiRate}%</b> AI resolution</span>
-        <span><b>${M.csat.toFixed(1)} / 5</b> CSAT</span>
-        <span><b>${M.firstResponseMin} min</b> first response</span>
+        <span><b>40</b> screens</span>
+        <span><b>60+</b> components</span>
+        <span><b>Light + dark</b> themes</span>
+        <span><b>0</b> dependencies</span>
+        <span><b>$79</b> one-time · UI8 license</span>
       </div>
     </div>
-    <div class="hero-shot" style="max-width:1020px;margin:0 auto;padding:0 24px 48px">
-      <div class="card card-pad">
-        <div class="flex items-center justify-between mb-4"><b>Command Center — live preview</b><span class="text-sm text-3">Last 14 days · ${fmt.num(M.totalResolved14)} tickets resolved</span></div>
-        <div class="stat-grid mb-4">
-          ${statCard({ label: "Open tickets", value: M.openTickets, sub: "of " + M.totalTickets + " in queue", icon: "📥" })}
-          ${statCard({ label: "AI resolution rate", value: M.aiRate + "%", sub: fmt.num(M.aiResolved14) + " of " + fmt.num(M.totalResolved14) + " resolved", icon: "✦" })}
-          ${statCard({ label: "CSAT", value: M.csat.toFixed(1) + " / 5", sub: "NPS " + M.nps, icon: "★" })}
-        </div>
-        ${svgLineDual(S.received, S.aiResolved, S.days, {})}
-        ${legend([{ color: "#6366f1", label: "Received" }, { color: "#14b8a6", label: "Resolved by AI" }])}
-      </div>
+    <div class="marketing-section-head"><h2>Look inside</h2><p>Real screens from the live demo — the same presentation pack that ships in the download. Click any screen to open it live.</p></div>
+    <div class="shot-grid">
+      ${shots.map(s => `<figure><a href="${s.route}"><div class="shot"><img src="${s.img}" alt="${esc(s.name)} — AgentDesk screen" loading="lazy"></div></a><figcaption><span><b>${esc(s.name)}</b> · ${esc(s.note)}</span><a href="${s.route}" class="font-semibold">Open live →</a></figcaption></figure>`).join("")}
     </div>
-    <div class="feature-grid" style="max-width:1020px;margin:0 auto;padding:0 24px 48px">
+    <div class="marketing-section-head"><h2>Built like a product, not a mockup</h2><p>Six things reviewers usually have to take on faith — here they are one click away, inside the demo.</p></div>
+    <div class="feature-grid">
       ${features.map(f => `<div class="card card-pad"><div style="font-size:24px">${f.icon}</div><h3 class="mt-2 mb-2">${esc(f.title)}</h3><p class="text-sm text-2" style="line-height:1.65">${esc(f.text)}</p></div>`).join("")}
+    </div>
+    <div style="max-width:1020px;margin:0 auto;padding:0 24px 64px">
+      <div class="card">
+        <div class="card-head"><div><h3>What's inside — all 40 screens</h3><div class="text-sm text-3">One fictional dataset (Halcyon, a Scale-plan workspace) drives every number on every screen</div></div><a href="#/overview" class="btn btn-sm">Open the demo →</a></div>
+        <div class="card-body flex flex-col gap-3">
+          ${inside.map(([g, list]) => `<div class="flex gap-4" style="flex-wrap:wrap"><b style="width:170px;flex:none">${esc(g)}</b><span class="text-sm text-2 grow" style="line-height:1.65">${esc(list)}</span></div>`).join("")}
+          <div class="divider"></div>
+          <p class="text-sm text-3" style="line-height:1.65">Also included: design tokens as CSS custom properties + <span class="mono">tokens.json</span> + <span class="mono">design-dna.md</span> for AI coding tools, full documentation (getting started, customizing, file structure, browser support), the 1600×1200 presentation pack, and responsive tablet (1024px) and mobile (390px) variants of the 8 core screens.</p>
+        </div>
+      </div>
     </div>
     <div style="max-width:760px;margin:0 auto;padding:0 24px 48px;text-align:center">
       <p class="text-lg" style="line-height:1.6">“AgentDesk cut our first response time by 60%.”</p>
@@ -730,9 +766,13 @@ const ScreensB = (() => {
     </div>
     <div style="max-width:1020px;margin:0 auto;padding:0 24px 64px">
       <div class="card card-pad" style="text-align:center">
-        <h2 class="mb-2">Ready to let support run itself?</h2>
-        <p class="text-sm text-3 mb-4">Start a 14-day trial — no credit card required.</p>
-        <a href="#/auth/signup" class="btn btn-lg">Get started free</a>
+        <span class="badge badge-brand mb-2">One-time payment · yours forever</span>
+        <h2 class="mb-2" style="font-size:var(--text-display)">Get AgentDesk for $79</h2>
+        <p class="text-sm text-3 mb-4">40 screens · 60+ components · light + dark · tokens &amp; docs · presentation pack.<br>HTML/CSS/JS only — no Figma file included.</p>
+        <div class="flex gap-2 justify-center" style="flex-wrap:wrap">
+          <a href="https://ko-fi.com/s/c9bf726fce/" target="_blank" rel="noopener" class="btn btn-lg">Get AgentDesk — $79</a>
+          <a href="#/overview" class="btn btn-secondary btn-lg">▶ Live demo first</a>
+        </div>
       </div>
     </div>
     ${marketingFoot()}

@@ -8,10 +8,13 @@
 ## Product
 
 **AgentDesk — AI Support & Agent Operations Dashboard.** A coded HTML/CSS/JS
-dashboard template. Dark-first, light theme included. 37 screens (28 app +
-3 auth + 3 empty states + 1 error + landing + pricing) + responsive tablet
-(1024px) and mobile (390px) variants of 8 core screens. HTML/CSS/JS only —
-no Figma file included.
+dashboard template. Dark-first, light theme included. 40 screens (29 app +
+3 auth + 3 empty states + 1 error + landing + pricing + onboarding +
+maintenance) + responsive tablet (1024px) and mobile (390px) variants of
+8 core screens. HTML/CSS/JS only — no Figma file included. The design
+system ships inside the product: a Style Guide screen (`#/styleguide`),
+Loading States (`#/loading`) and a full-screen Copilot Console
+(`#/console`); the demo opens on a product landing page (`#/landing`).
 
 ## Color
 
@@ -43,9 +46,13 @@ amber, `#38bdf8` sky, `#f472b6` pink, `#a78bfa` violet.
 
 ## Typography
 
-- **Sans:** Inter, system fallback. **Mono:** JetBrains Mono (numbers, timers,
-  IDs, code).
-- **Scale:** xs 11, sm 12.5, base 14, lg 16, xl 20, 2xl 24, 3xl 30.
+- **Display:** Space Grotesk (headlines, page titles, stat values, hero
+  numerals). **Sans:** Inter, system fallback (UI/body). **Mono:**
+  JetBrains Mono (numbers, timers, IDs, code).
+- **Scale (six steps):** xs 11 (micro labels), sm 12.5 (secondary), base 14
+  (body), xl 20 (card/section titles), 3xl 30 (display headings), hero 46
+  (one hero numeral per main screen, via the `.hero-band` component).
+  Intermediates: lg 16, 2xl 24, display 38.
 - **Line height:** tight 1.2 (headings), normal 1.45 (body), relaxed 1.65
   (long text).
 - **Weights:** 400 normal, 500 medium, 600 semibold, 700 bold, 800 extrabold.
@@ -112,5 +119,5 @@ amber, `#38bdf8` sky, `#f472b6` pink, `#a78bfa` violet.
 
 > "Using AgentDesk's design DNA (tokens.json + design-dna.md), build a new
 > screen in the same style: dark-first tokens, 16px cards, 8px spacing grid,
-> Inter, indigo #6366f1 primary with teal #14b8a6 for AI elements, data from
+> Inter, Space Grotesk display type, indigo #6366f1 primary with teal #14b8a6 for AI elements, data from
 > js/data.js, vanilla SVG charts, responsive at 1100px and 768px."

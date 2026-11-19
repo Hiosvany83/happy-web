@@ -42,6 +42,9 @@
   .stat-grid { grid-template-columns: repeat(2, 1fr); }
   .grid-2, .grid-3, .grid-4, .grid-5 { grid-template-columns: 1fr; }
   .feature-grid { grid-template-columns: 1fr; }
+  .shot-grid { grid-template-columns: 1fr; }
+  .hero-band .hero-value { font-size: 34px; }
+  .hero-band .hero-side { margin-left: 0; }
   .marketing-hero h1 { font-size: 32px; }
   .marketing-hero { padding: var(--space-10) var(--space-4) var(--space-8); }
   .marketing-nav .links { display: none; }

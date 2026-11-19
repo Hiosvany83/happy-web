@@ -1,6 +1,6 @@
 /* ============================================================
    AgentDesk — App shell
-   Hash router (37 screens), theme toggle, command palette
+   Hash router (40 screens), theme toggle, command palette
    (Cmd+K), data-table wiring, inbox filters, new-ticket modal,
    copilot playground streaming effect.
    ============================================================ */
@@ -48,7 +48,10 @@
     { path: "landing", title: "AgentDesk — AI Support Operations", fn: () => ScreensB.landing(), nav: null, shell: "full" },
     { path: "pricing", title: "Pricing", fn: () => ScreensB.pricing(), nav: null, shell: "full" },
     { path: "onboarding", title: "Onboarding", fn: () => ScreensC.onboarding(), nav: null, shell: "full" },
-    { path: "maintenance", title: "Maintenance", fn: () => ScreensC.maintenance(), nav: null, shell: "full" }
+    { path: "maintenance", title: "Maintenance", fn: () => ScreensC.maintenance(), nav: null, shell: "full" },
+    { path: "styleguide", title: "Style Guide", fn: () => ScreensC.styleguide(), nav: "styleguide", shell: "app" },
+    { path: "loading", title: "Loading States", fn: () => ScreensC.loading(), nav: "loading", shell: "app" },
+    { path: "console", title: "Copilot Console", fn: () => ScreensC.consoleScreen(), nav: "console", shell: "app" }
   ];
 
   function matchRoute(hash) {
@@ -210,6 +213,9 @@
     { group: "Navigate", label: "Go to Inbox", hint: "Screen", run: () => location.hash = "#/inbox" },
     { group: "Navigate", label: "Go to AI Agent Fleet", hint: "Screen", run: () => location.hash = "#/fleet" },
     { group: "Navigate", label: "Go to AI Copilot Playground", hint: "Screen", run: () => location.hash = "#/playground" },
+    { group: "Navigate", label: "Go to Copilot Console", hint: "Screen", run: () => location.hash = "#/console" },
+    { group: "Navigate", label: "Go to Style Guide", hint: "Design system", run: () => location.hash = "#/styleguide" },
+    { group: "Navigate", label: "Go to Loading States", hint: "Design system", run: () => location.hash = "#/loading" },
     { group: "Navigate", label: "Go to Analytics — AI", hint: "Screen", run: () => location.hash = "#/analytics/ai" },
     { group: "Navigate", label: "Go to Knowledge Base", hint: "Screen", run: () => location.hash = "#/kb" },
     { group: "Navigate", label: "Go to Customers", hint: "Screen", run: () => location.hash = "#/customers" },
@@ -286,6 +292,9 @@
   /* ---------------- Boot ---------------- */
   window.addEventListener("hashchange", render);
   initTheme();
-  if (!location.hash) location.hash = "#/overview";
+  // The demo opens on the product landing page (like a real product
+  // site); the app itself is one click away via "Live demo".
+  // Deep links (#/overview, #/ticket/…, …) are untouched.
+  if (!location.hash) location.hash = "#/landing";
   render();
 })();

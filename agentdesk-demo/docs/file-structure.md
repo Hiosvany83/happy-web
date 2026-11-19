@@ -14,8 +14,10 @@ agentdesk/
 │   ├── charts.js         Vanilla SVG charts: line, dual-line, bars, donut, gauge, sparkline
 │   ├── components.js     Component library (HTML-string helpers, modal, toast, tables)
 │   ├── screens-a.js      Screens 1–14 (overview … AI analytics)
-│   ├── screens-b.js      Screens 15–37 (SLA … pricing)
+│   ├── screens-b.js      Screens 15–35 (SLA … pricing)
+│   ├── screens-c.js      Screens 36–40 (onboarding … Copilot Console)
 │   └── app.js            Hash router, theme toggle, Cmd+K palette, table wiring
+├── presentation/         8 presentation images, 1600×1200, device frames
 ├── assets/
 │   └── favicon.svg       Brand mark (SVG)
 ├── docs/
@@ -30,7 +32,7 @@ agentdesk/
 └── listing-ui8.txt       UI8 listing draft (not part of the template itself)
 ```
 
-## Screen map (37 screens)
+## Screen map (40 screens)
 
 | # | Screen | Route |
 |---|--------|-------|
@@ -71,6 +73,9 @@ agentdesk/
 | 35 | Pricing page | `#/pricing` |
 | 36 | Onboarding wizard | `#/onboarding` |
 | 37 | Maintenance page | `#/maintenance` |
+| 38 | Style Guide (design system) | `#/styleguide` |
+| 39 | Loading States (skeletons) | `#/loading` |
+| 40 | Copilot Console | `#/console` |
 
 Plus responsive tablet (1024px) and mobile (390px) variants of 8 core
 screens (Overview, Inbox, Ticket detail, Agent Fleet, Analytics,
