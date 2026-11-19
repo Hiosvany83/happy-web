@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Reconly — AI Finance Operations Dashboard</title>
-<meta name="description" content="Reconly is a production-quality AI finance operations dashboard UI kit: cash flow, invoicing, AP automation, budgets, payroll and an AI finance copilot. 38 screens, light + dark, pure HTML/CSS/JS.">
+<meta name="description" content="Reconly is a production-quality AI finance operations dashboard UI kit: cash flow, invoicing, AP automation, budgets, payroll and an AI finance copilot. 42 screens, light + dark, pure HTML/CSS/JS.">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/components.css">
@@ -24,7 +24,7 @@
     <div class="brand">
       <div class="logo">✓</div>
       <span class="wordmark">Reconly</span>
-      <span class="version">v1.0</span>
+      <span class="version">v1.1</span>
     </div>
 
     <div class="workspace-switcher" id="ws-switcher" tabindex="0" role="button" aria-label="Switch workspace">
@@ -44,6 +44,7 @@
       <div class="nav-group">Overview</div>
       <a class="nav-item" href="#/command" data-nav="command"><span class="icon">▦</span>Command Center</a>
       <a class="nav-item" href="#/cashflow" data-nav="cashflow"><span class="icon">≋</span>Cash Flow</a>
+      <a class="nav-item" href="#/calendar" data-nav="calendar"><span class="icon">🗓</span>Cash Calendar</a>
       <a class="nav-item" href="#/revenue" data-nav="revenue"><span class="icon">↗</span>Revenue Analytics</a>
 
       <div class="nav-group">Money in</div>
@@ -87,7 +88,9 @@
       <a class="nav-item" href="#/verify" data-nav="verify"><span class="icon">✉</span>Verify Email</a>
       <a class="nav-item" href="#/reset" data-nav="reset"><span class="icon">↺</span>Reset Password</a>
       <a class="nav-item" href="#/onboarding" data-nav="onboarding"><span class="icon">🚀</span>Onboarding</a>
+      <a class="nav-item" href="#/styleguide" data-nav="styleguide"><span class="icon">🎨</span>Style Guide</a>
       <a class="nav-item" href="#/states" data-nav="states"><span class="icon">▢</span>Empty States</a>
+      <a class="nav-item" href="#/loading" data-nav="loading"><span class="icon">◌</span>Loading States</a>
       <a class="nav-item" href="#/notfound" data-nav="notfound"><span class="icon">404</span>404 Page</a>
       <a class="nav-item" href="#/maintenance" data-nav="maintenance"><span class="icon">🛠</span>Maintenance</a>
     </nav>
@@ -132,6 +135,7 @@
 <script src="js/screens-a.js"></script>
 <script src="js/screens-b.js"></script>
 <script src="js/screens-c.js"></script>
+<script src="js/screens-d.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

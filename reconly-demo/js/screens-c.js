@@ -197,7 +197,7 @@ S3["landing"] = () => `
       <div class="mt-4">${svgBarsDual(DATA.series12.revenue, DATA.series12.expenses, DATA.series12.months, { c1: "#10b981", c2: "#f59e0b", h: 150 })}</div>
     </div></div></div>
   </section>
-  <section class="section"><h2>Everything finance ops touches</h2><p class="sub">Thirty-eight production screens — not wireframes.</p>
+  <section class="section"><h2>Everything finance ops touches</h2><p class="sub">Forty-two production screens — not wireframes.</p>
     <div class="grid grid-3">
       ${[["🧾", "Smart invoicing", "Invoices that chase themselves: AI reminders tuned to each customer's payment history."], ["📥", "AP automation", "Bills extracted, three-way matched and scheduled. Humans only see the exceptions."], ["≋", "Cash clarity", "Live balances, 30-day projection and runway — computed from the actual ledgers."], ["🎯", "Budgets that hold", "Plan vs. actual by department, with the overage explained before month-end."], ["🧠", "AI cost intelligence", "Duplicate tools, idle seats and untagged cloud spend — flagged with the savings attached."], ["✦", "A copilot with receipts", "Ask about the books; every answer cites the records it came from."]].map(([i, t, d]) => `<div class="card"><div class="card-body"><div style="font-size:24px" class="mb-2">${i}</div><strong>${t}</strong><p class="text-sm text-2 mt-2">${d}</p></div></div>`).join("")}
     </div></section>
@@ -206,7 +206,7 @@ S3["landing"] = () => `
       ${[["We close in four days now. The exceptions queue is the whole job — everything else posts itself.", "Dana Whitfield", "CFO, Arcadia Systems"], ["The copilot's board summary matched our P&L to the cent. That's when I stopped double-checking it.", "Marcus Reid", "Controller"], ["It caught a duplicate Figma bill and $640/mo of duplicate transcription tools in the first week.", "Priya Nair", "AP Specialist"]].map(([q, n, r]) => `<div class="card"><div class="card-body"><p class="text-sm" style="line-height:1.7">“${q}”</p><div class="flex items-center gap-2 mt-3">${avatarHtml(n, "sm")}<span class="text-sm"><strong>${n}</strong><br><span class="text-3">${r}</span></span></div></div></div>`).join("")}
     </div></section>
   <section class="section" style="text-align:center"><h2>Close your next month in days, not weeks</h2><p class="sub">Free 14-day trial · connect your bank and accounting in minutes.</p><a class="btn btn-primary" href="#/signup">Start free</a></section>
-  <footer class="public-foot">© 2026 Reconly (demo brand) · This landing page is one of the 38 screens included in the template.</footer>`;
+  <footer class="public-foot">© 2026 Reconly (demo brand) · This landing page is one of the 42 screens included in the template.</footer>`;
 
 /* ================= PUBLIC: PRICING ================= */
 S3["pricing"] = () => {

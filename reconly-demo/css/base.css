@@ -35,12 +35,16 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 /* ---- Type utilities ---- */
 .mono { font-family: var(--font-mono); }
+.font-display { font-family: var(--font-display); }
 .text-xs { font-size: var(--text-xs); }
 .text-sm { font-size: var(--text-sm); }
 .text-lg { font-size: var(--text-lg); }
 .text-xl { font-size: var(--text-xl); }
 .text-2xl { font-size: var(--text-2xl); }
 .text-3xl { font-size: var(--text-3xl); }
+.text-4xl { font-size: var(--text-4xl); }
+.text-5xl { font-size: var(--text-5xl); }
+.text-hero { font-size: var(--text-hero); }
 .text-2 { color: var(--text-2); }
 .text-3 { color: var(--text-3); }
 .text-4 { color: var(--text-4); }

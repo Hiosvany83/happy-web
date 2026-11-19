@@ -1,6 +1,6 @@
 /* ============================================================
    Reconly — Dataset (fictional)
-   ONE dataset for all 38 screens. Every KPI, table and chart
+   ONE dataset for all 42 screens. Every KPI, table and chart
    is computed from these arrays — numbers reconcile by design:
    October revenue − expenses = net; category spend sums to
    total expenses; department actuals sum to the same total;
@@ -11,7 +11,7 @@
 const DATA = {
   meta: {
     product: "Reconly",
-    version: "1.0.0",
+    version: "1.1.0",
     workspace: "Arcadia Systems",
     workspacePlan: "Scale",
     currency: "USD",

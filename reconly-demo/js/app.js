@@ -5,6 +5,7 @@
 const TITLES = {
   "command": ["Command Center", "Real-time cash, revenue and payables"],
   "cashflow": ["Cash Flow", "Where the money is, and where it is going"],
+  "calendar": ["Cash Calendar", "November 2026 — every due date on one page"],
   "revenue": ["Revenue Analytics", "MRR, growth and retention"],
   "invoices": ["Invoices", "Accounts receivable"],
   "customers": ["Customers", "Who owes what — and how reliably they pay"],
@@ -38,13 +39,17 @@ const TITLES = {
   "verify": ["Verify Email", "Authentication"],
   "reset": ["Reset Password", "Authentication"],
   "onboarding": ["Onboarding", "Guided setup"],
+  "styleguide": ["Style Guide", "The Reconly design system, in-product"],
   "states": ["Empty States", "Zero-data patterns"],
+  "loading": ["Loading States", "Skeleton patterns for async screens"],
+  "product": ["Reconly — AI Finance Operations Dashboard UI Kit", "HTML/CSS/JS template"],
   "notfound": ["404 — Not Found", "Error state"],
   "maintenance": ["Maintenance", "Planned downtime state"]
 };
 
 function currentRoute() {
   const h = location.hash.replace(/^#\//, "").replace(/^#/, "");
+  if (!h) return "product";
   return TITLES[h] ? h : "command";
 }
 
@@ -52,6 +57,7 @@ function render() {
   const route = currentRoute();
   const fn = window.AD.screens[route];
   const app = document.getElementById("app");
+  document.getElementById("shell").classList.toggle("product-mode", route === "product");
   app.innerHTML = fn ? fn() : window.AD.screens.notfound();
   const [title, sub] = TITLES[route] || TITLES.notfound;
   document.getElementById("crumb-title").textContent = title;
@@ -96,6 +102,22 @@ function bindTables() {
 function bindInteractions(route) {
   if (route === "copilot") bindCopilot();
   if (route === "forecast") bindForecast();
+  if (route === "calendar") bindCalendar();
+}
+
+/* Cash Calendar: click a day -> detail panel */
+function bindCalendar() {
+  const detail = document.getElementById("cal-detail");
+  if (!detail) return;
+  document.querySelectorAll("[data-cal-day]").forEach(el => {
+    const open = () => {
+      document.querySelectorAll("[data-cal-day]").forEach(x => x.classList.remove("selected"));
+      el.classList.add("selected");
+      detail.innerHTML = calDetailHtml(parseInt(el.dataset.calDay, 10));
+    };
+    el.addEventListener("click", open);
+    el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
+  });
 }
 
 /* Copilot: pick a question -> typed answer from the keyword-matched dataset */

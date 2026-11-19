@@ -108,7 +108,7 @@ S2["payroll"] = () => {
   return `
   ${pageHeadB("Payroll", "People costs — the largest line in the P&L, fully reconciled", `<button class="btn btn-secondary" onclick="toast('Payroll journal exported to QuickBooks','success')">Export journal</button><button class="btn btn-primary" onclick="toast('November run is a draft until Nov 24','info')">Review Nov run</button>`)}
   <div class="grid grid-4 mb-4">
-    ${statCard({ label: "October payroll (gross)", value: fmt.money(p.totalOct), sub: p.headcount + " employees · via Deel", spark: [204, 208, 211, 214, 216, 218.4], accent: "#10b981" })}
+    ${statCard({ label: "October payroll (gross)", value: fmt.money(p.totalOct), hero: true, sub: p.headcount + " employees · via Deel", spark: [204, 208, 211, 214, 216, 218.4], accent: "#10b981" })}
     ${statCard({ label: "Employer taxes & benefits", value: fmt.money(p.employerTaxesOct), sub: "Included in the Payroll category total" })}
     ${statCard({ label: "Next run", value: p.nextRun, sub: "Estimated " + fmt.money(p.nextRunEst) + " gross" })}
     ${statCard({ label: "Headcount", value: String(p.headcount), delta: "+2 in Oct", deltaDir: "up", deltaGood: true, sub: "Engineering +1 · CS +1" })}
@@ -138,7 +138,7 @@ S2["budgets"] = () => {
   ${pageHeadB("Budgets", "Plan vs. actual — October closed inside plan overall", `<button class="btn btn-secondary" onclick="toast('Budget template exported','success')">Export</button><button class="btn btn-primary" onclick="toast('Q1 2027 planning workspace created','success')">Plan Q1 2027</button>`)}
   <div class="grid grid-3 mb-4">
     ${statCard({ label: "October budget", value: fmt.money(m.deptBudget), sub: "Across " + DATA.departments.length + " departments" })}
-    ${statCard({ label: "October actual", value: fmt.money(m.deptActual), delta: "−4.5% under", deltaDir: "down", deltaGood: true, sub: "Savings held despite cloud overage" })}
+    ${statCard({ label: "October actual", value: fmt.money(m.deptActual), hero: true, delta: "−4.5% under", deltaDir: "down", deltaGood: true, sub: "Savings held despite cloud overage" })}
     ${statCard({ label: "Departments over plan", value: "0", sub: "Engineering closest at 96%" })}
   </div>
   <div class="flex flex-col gap-4">
@@ -163,7 +163,7 @@ S2["ai-costs"] = () => {
   return `
   ${pageHeadB("AI Cost Intelligence", "What the AI stack costs — and what it earns back", `<button class="btn btn-secondary" onclick="toast('AI spend report exported (PDF)','success')">Export report</button>`)}
   <div class="grid grid-4 mb-4">
-    ${statCard({ label: "AI spend — October", value: fmt.money(m.aiSpend), sub: "Tools below sum to this total", accent: "#8b5cf6", spark: [7.9, 8.2, 8.4, 8.6, 8.8, 8.94] })}
+    ${statCard({ label: "AI spend — October", value: fmt.money(m.aiSpend), hero: true, sub: "Tools below sum to this total", accent: "#8b5cf6", spark: [7.9, 8.2, 8.4, 8.6, 8.8, 8.94] })}
     ${statCard({ label: "Tokens processed", value: DATA.headline.aiTokensM + "M", sub: "Across 2 API providers" })}
     ${statCard({ label: "Identified waste", value: fmt.money(920) + "/mo", delta: fmt.money(11040) + "/yr", deltaDir: "up", deltaGood: false, sub: "Duplicates + idle seats" })}
     ${statCard({ label: "Automation ROI", value: "23.7×", sub: "212 h saved vs tooling cost" })}
@@ -256,7 +256,7 @@ S2["tax"] = () => {
   return `
   ${pageHeadB("Tax & Compliance", "Indirect taxes collected, filed and due — by jurisdiction", `<button class="btn btn-secondary" onclick="toast('Tax summary exported (PDF)','success')">Export summary</button>`)}
   <div class="grid grid-3 mb-4">
-    ${statCard({ label: "Collected in October", value: fmt.money(DATA.headline.taxCollectedOct), sub: "Across " + DATA.taxRows.length + " jurisdictions — ties to the rows below" })}
+    ${statCard({ label: "Collected in October", value: fmt.money(DATA.headline.taxCollectedOct), hero: true, sub: "Across " + DATA.taxRows.length + " jurisdictions — ties to the rows below" })}
     ${statCard({ label: "Next deadline", value: "Dec 7, 2026", sub: "UK VAT return · draft ready" })}
     ${statCard({ label: "Filings on time (2026)", value: "11 of 11", sub: "No penalties, no notices" })}
   </div>

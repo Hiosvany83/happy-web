@@ -18,11 +18,22 @@ S["command"] = () => {
   ${pageHead("Good morning, Dana", DATA.meta.today + " · " + DATA.meta.workspace + " · October closed net-positive for the first time since June", `
     <button class="btn btn-secondary" onclick="toast('Board pack PDF queued — check Reports','success')">Export board pack</button>
     <button class="btn btn-primary" onclick="document.getElementById('new-invoice-btn').click()">＋ New invoice</button>`)}
-  <div class="grid grid-4 mb-4">
-    ${statCard({ label: "Cash position", value: fmt.money(h.cash), sub: "Operating " + fmt.money(h.cashOperating) + " · MM " + fmt.money(h.cashMoneyMarket), spark: s.cash, accent: "#10b981" })}
+  <div class="card hero-band mb-4" style="padding:var(--space-5) var(--space-6)">
+    <div>
+      <div class="stat-label" style="font-size:var(--text-sm);color:var(--text-3);font-weight:var(--weight-medium)">💰 Cash position — the number that runs the company</div>
+      <div class="hero-figure">${fmt.money(h.cash)}</div>
+      <div class="text-sm text-3">Across 2 accounts · updated from the live bank feed 4 minutes ago</div>
+    </div>
+    <div class="hero-side">
+      <div class="mini"><div class="text-sm text-3 mb-2">Operating •4821</div><div class="v">${fmt.money(h.cashOperating)}</div></div>
+      <div class="mini"><div class="text-sm text-3 mb-2">Money market •9034</div><div class="v">${fmt.money(h.cashMoneyMarket)}</div></div>
+      <div class="mini"><div class="text-sm text-3 mb-2">Runway</div><div class="v">${h.runwayMonths} months</div></div>
+    </div>
+  </div>
+  <div class="grid grid-3 mb-4">
     ${statCard({ label: "Net — October", value: "+" + fmt.money(m.netOct), delta: "vs −" + fmt.money(39800) + " in Aug", deltaDir: "up", deltaGood: true, sub: "Revenue " + fmt.money(h.revenueOct) + " · Spend " + fmt.money(h.expensesOct) })}
     ${statCard({ label: "MRR", value: fmt.money(h.mrr), delta: m.mrrGrowthPct + "% MoM", deltaDir: "up", deltaGood: true, sub: "ARR " + fmt.money(h.arr) + " · NRR " + DATA.mrrMovement.nrr + "%", spark: s.mrr, accent: "#8b5cf6" })}
-    ${statCard({ label: "Runway", value: h.runwayMonths + " months", sub: "At Q3 avg net burn " + fmt.money(h.avgNetBurnQ3) + "/mo", spark: [31, 30, 29, 28, 28, 29, 30, 31], accent: "#38bdf8" })}
+    ${statCard({ label: "AR overdue", value: fmt.money(m.arOverdue), delta: m.arOverdueCount + " invoices", deltaDir: "up", deltaGood: false, sub: "Oldest: INV-2039 · 18 days · reminders on", accent: "#f43f5e", spark: [12, 18, 15, 22, 31, 37] })}
   </div>
   <div class="grid grid-2-1 mb-4">
     <div>
@@ -75,7 +86,7 @@ S["cashflow"] = () => {
   return `
   ${pageHead("Cash Flow", "Balances, movement and the next 30 days", `<button class="btn btn-secondary" onclick="toast('Cash flow statement exported (PDF)','success')">Export statement</button>`)}
   <div class="grid grid-4 mb-4">
-    ${statCard({ label: "Total cash", value: fmt.money(h.cash), delta: "+4.6% in Oct", deltaDir: "up", deltaGood: true, sub: "Across 2 accounts", spark: s.cash })}
+    ${statCard({ label: "Total cash", value: fmt.money(h.cash), hero: true, delta: "+4.6% in Oct", deltaDir: "up", deltaGood: true, sub: "Across 2 accounts", spark: s.cash })}
     ${statCard({ label: "Operating account", value: fmt.money(h.cashOperating), sub: "Mercury •4821 · daily operations" })}
     ${statCard({ label: "Money market", value: fmt.money(h.cashMoneyMarket), sub: "Mercury •9034 · 4.1% APY" })}
     ${statCard({ label: "Projected Nov 30", value: fmt.money(projected - DATA.payroll.nextRunEst), sub: "After Nov bills, expected receipts & payroll", accent: "#38bdf8", spark: [1284600, 1298000, 1312000, projected - DATA.payroll.nextRunEst] })}
@@ -128,7 +139,7 @@ S["revenue"] = () => {
   return `
   ${pageHead("Revenue Analytics", "Recurring revenue quality: growth, expansion and churn", `<button class="btn btn-secondary" onclick="toast('Revenue report exported (CSV)','success')">Export CSV</button>`)}
   <div class="grid grid-4 mb-4">
-    ${statCard({ label: "MRR", value: fmt.money(h.mrr), delta: M().mrrGrowthPct + "% MoM", deltaDir: "up", deltaGood: true, sub: "From " + fmt.num(DATA.customers.length) + " active customers shown", spark: s.mrr, accent: "#8b5cf6" })}
+    ${statCard({ label: "MRR", value: fmt.money(h.mrr), hero: true, delta: M().mrrGrowthPct + "% MoM", deltaDir: "up", deltaGood: true, sub: "From " + fmt.num(DATA.customers.length) + " active customers shown", spark: s.mrr, accent: "#8b5cf6" })}
     ${statCard({ label: "ARR", value: fmt.money(h.arr), sub: "MRR × 12 · run-rate" })}
     ${statCard({ label: "Net revenue retention", value: mv.nrr + "%", delta: "+1.3 pts QoQ", deltaDir: "up", deltaGood: true, sub: "Expansion outpaces churn" })}
     ${statCard({ label: "Gross churn", value: mv.grossChurnPct + "%", delta: "−0.4 pts MoM", deltaDir: "down", deltaGood: true, sub: fmt.money(mv.churned) + " MRR churned in Oct" })}
@@ -173,7 +184,7 @@ S["invoices"] = () => {
     <button class="btn btn-secondary" onclick="toast('AR aging exported (CSV)','success')">Export aging</button>
     <button class="btn btn-primary" onclick="document.getElementById('new-invoice-btn').click()">＋ New invoice</button>`)}
   <div class="grid grid-4 mb-4">
-    ${statCard({ label: "Outstanding", value: fmt.money(m.arOutstanding), sub: m.arOpenCount + " open invoices · " + DATA.customers.length + " customers" })}
+    ${statCard({ label: "Outstanding", value: fmt.money(m.arOutstanding), hero: true, sub: m.arOpenCount + " open invoices · " + DATA.customers.length + " customers" })}
     ${statCard({ label: "Overdue", value: fmt.money(m.arOverdue), delta: m.arOverdueCount + " invoices", deltaDir: "up", deltaGood: false, sub: "Oldest: 18 days (INV-2039)", accent: "#f43f5e", spark: [12, 18, 15, 22, 31, 37] })}
     ${statCard({ label: "Collected in October", value: fmt.money(75190), sub: "4 invoices paid · avg 26 days to pay" })}
     ${statCard({ label: "Auto-reminders", value: "On", sub: "AI drafts · you approve sends over $10K" })}
@@ -256,7 +267,7 @@ S["bills"] = () => {
     <button class="btn btn-secondary" onclick="toast('AP schedule exported (CSV)','success')">Export schedule</button>
     <button class="btn btn-primary" onclick="toast('Drop a PDF or forward to bills@arcadia.reconly.app — AI extracts it','info')">＋ Add bill</button>`)}
   <div class="grid grid-4 mb-4">
-    ${statCard({ label: "Due this week", value: fmt.money(m.billsDueWeek), sub: m.billsDueCount + " bills · all matched" })}
+    ${statCard({ label: "Due this week", value: fmt.money(m.billsDueWeek), hero: true, sub: m.billsDueCount + " bills · all matched" })}
     ${statCard({ label: "Scheduled later", value: fmt.money(DATA.bills.filter(b => b.status === "scheduled").reduce((a, b) => a + b.amount, 0)), sub: "GitHub · Linear · auto-pay on" })}
     ${statCard({ label: "Paid in November", value: fmt.money(720), sub: "Notion · paid Nov 4" })}
     ${statCard({ label: "Auto-match rate", value: DATA.headline.autoMatchRate + "%", delta: "+1.8 pts vs Sep", deltaDir: "up", deltaGood: true, sub: "Exceptions route to the queue", accent: "#8b5cf6", spark: [89, 90, 91, 92, 93, 94.2] })}
@@ -397,7 +408,7 @@ S["spend"] = () => {
   return `
   ${pageHead("Spend & Expenses", "Every dollar out — categorised, checked against budget", `<button class="btn btn-secondary" onclick="toast('Spend report exported (CSV)','success')">Export CSV</button>`)}
   <div class="grid grid-4 mb-4">
-    ${statCard({ label: "October spend", value: fmt.money(m.spendTotal), delta: "−16.9% vs Sep", deltaDir: "down", deltaGood: true, sub: "September carried annual premiums" })}
+    ${statCard({ label: "October spend", value: fmt.money(m.spendTotal), hero: true, delta: "−16.9% vs Sep", deltaDir: "down", deltaGood: true, sub: "September carried annual premiums" })}
     ${statCard({ label: "vs October budget", value: fmt.money(m.deptBudget), sub: "Under budget by " + fmt.money(m.deptBudget - m.spendTotal) + " (−4.5%)" })}
     ${statCard({ label: "Top category", value: "Payroll 61%", sub: fmt.money(218400) + " of total spend" })}
     ${statCard({ label: "AI categorisation", value: "98.6%", sub: "Of transactions auto-categorised", accent: "#8b5cf6", spark: [96, 97, 97, 98, 98, 98.6] })}

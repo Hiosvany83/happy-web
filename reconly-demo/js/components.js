@@ -48,13 +48,13 @@ function avatarStack(names, max = 4) {
 
 /* ---------- Stat cards ---------- */
 function statCard(o) {
-  // o: {label, value, delta, deltaDir('up'|'down'), deltaGood(bool), sub, spark:[numbers], icon, accent}
+  // o: {label, value, delta, deltaDir('up'|'down'), deltaGood(bool), sub, spark:[numbers], icon, accent, hero(bool)}
   const tone = o.deltaGood !== undefined ? (o.deltaGood ? "delta-up" : "delta-down") : (o.deltaDir === "down" ? "delta-down" : "delta-up");
   const delta = o.delta ? `<span class="stat-delta ${tone}">${o.deltaDir === "down" ? "↓" : "↑"} ${esc(o.delta)}</span>` : "";
   const spark = o.spark ? `<span class="stat-spark">${sparkline(o.spark, { color: o.accent || "#10b981", w: 84, h: 26 })}</span>` : "";
   return `<div class="stat-card">
     <div class="stat-label">${o.icon || ""} ${esc(o.label)}</div>
-    <div class="stat-value">${o.value}</div>
+    <div class="stat-value${o.hero ? " stat-value-hero" : ""}">${o.value}</div>
     <div class="stat-foot">
       <div class="stat-foot-text">${delta}<span class="stat-sub">${esc(o.sub || "")}</span></div>
       ${spark}
