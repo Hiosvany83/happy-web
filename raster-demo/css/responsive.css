@@ -1,0 +1,41 @@
+/* RASTER — responsive: the same poster, re-set for tablet and mobile.
+   Every screen is designed at all three breakpoints (views = screens × 3). */
+@media (max-width:1180px){
+  .grid{grid-template-columns:repeat(8,1fr)}
+  .span-3{grid-column:span 4}.span-4{grid-column:span 4}.span-5{grid-column:span 4}
+  .span-6{grid-column:span 8}.span-7{grid-column:span 8}.span-8{grid-column:span 8}
+  .span-9{grid-column:span 8}.span-12{grid-column:span 8}
+  .kanban{grid-template-columns:repeat(2,1fr)}
+  .file-grid{grid-template-columns:repeat(3,1fr)}
+  .rb-grid{grid-template-columns:1fr 1fr}
+  .num-hero{font-size:52px}
+  .poster-num{font-size:130px}
+}
+@media (max-width:860px){
+  #sidebar{position:fixed;left:0;top:0;z-index:120;transform:translateX(-100%);transition:transform .2s}
+  body.nav-open #sidebar{transform:none;box-shadow:0 0 0 100vmax rgba(17,17,17,.5)}
+  #nav-toggle{display:inline-flex}
+  #app{padding:var(--s6) var(--s5) var(--s9)}
+  #colophon{padding:var(--s4) var(--s5)}
+  .grid{grid-template-columns:repeat(4,1fr);gap:var(--s5)}
+  .span-3,.span-4,.span-5,.span-6,.span-7,.span-8,.span-9,.span-12{grid-column:span 4}
+  .h1,.page-head h1{font-size:32px}
+  .num-hero{font-size:44px}
+  .poster{grid-template-columns:1fr}
+  .poster-left{border-right:0;border-bottom:1px solid var(--line);padding:var(--s7) var(--s5)}
+  .poster-right{padding:var(--s7) var(--s5)}
+  .poster-num{font-size:96px}
+  .kanban{grid-template-columns:1fr}
+  .inbox{grid-template-columns:1fr}
+  .inbox-list{border-right:0;max-height:320px}
+  .price-cols{grid-template-columns:1fr}
+  .file-grid{grid-template-columns:repeat(2,1fr)}
+  .f-row{grid-template-columns:1fr}
+  .kv{grid-template-columns:repeat(2,1fr)}
+  .rb-grid{grid-template-columns:1fr}
+  .ob-steps{grid-template-columns:repeat(2,1fr)}
+  .swatches{grid-template-columns:repeat(2,1fr)}
+  .cal-cell{min-height:64px}
+  .tb-hide{display:none!important}
+  .tbl th,.tbl td{padding:9px 8px}
+}

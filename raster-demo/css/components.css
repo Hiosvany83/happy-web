@@ -1,0 +1,179 @@
+/* RASTER — component library styles (every class here is enumerated in the Style Guide) */
+
+/* — Buttons — */
+.btn{
+  display:inline-flex;align-items:center;gap:var(--s2);border:1px solid var(--line);
+  background:var(--ink);color:var(--paper);padding:10px 18px;
+  font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;line-height:1;
+}
+.btn:hover{background:var(--red);border-color:var(--red);color:#fff;text-decoration:none}
+.btn-red{background:var(--red);border-color:var(--red);color:#fff}
+.btn-red:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.btn-outline{background:var(--paper);color:var(--ink)}
+.btn-outline:hover{background:var(--ink);color:var(--paper);border-color:var(--line)}
+.btn-ghost{background:transparent;border-color:transparent;color:var(--ink)}
+.btn-ghost:hover{background:var(--paper-2);color:var(--ink);border-color:transparent}
+.btn-sm{padding:7px 12px;font-size:11px}
+.btn-lg{padding:14px 26px;font-size:13px}
+.btn-block{width:100%;justify-content:center}
+.btn[disabled],.btn.disabled{opacity:.35;pointer-events:none}
+.btn .spin{width:12px;height:12px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:rot .7s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+.btn-group{display:inline-flex}
+.btn-group .btn{border-left-width:0}
+.btn-group .btn:first-child{border-left-width:1px}
+.icon-btn{width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);background:var(--paper);color:var(--ink);font-weight:900}
+.icon-btn:hover{background:var(--ink);color:var(--paper)}
+.icon-btn.red{background:var(--red);border-color:var(--red);color:#fff}
+
+/* — Badges, tags, markers — */
+.badge{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);padding:2px 8px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;line-height:1.6;background:var(--paper);color:var(--ink);white-space:nowrap}
+.badge-solid{background:var(--ink);color:var(--paper)}
+.badge-red{background:var(--red);border-color:var(--red);color:#fff}
+.badge .sq{width:6px;height:6px;background:var(--red);flex:none}
+.badge-solid .sq{background:#fff}
+.badge .sq-ink{width:6px;height:6px;background:var(--ink);flex:none}
+.tag{display:inline-flex;align-items:center;gap:6px;background:var(--paper-2);border:1px solid var(--line-soft);padding:3px 9px;font-size:12px;font-weight:500}
+.tag button{border:0;background:none;font-weight:900;line-height:1;padding:0}
+
+/* — Avatars (initials, square) — */
+.avatar{width:36px;height:36px;background:var(--ink);color:var(--paper);display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex:none}
+.avatar.red{background:var(--red);color:#fff}
+.avatar.line{background:var(--paper);color:var(--ink);border:1px solid var(--line)}
+.avatar.sm{width:26px;height:26px;font-size:10px}
+.avatar.lg{width:52px;height:52px;font-size:17px}
+.avatar.xl{width:76px;height:76px;font-size:26px}
+.avatar-stack{display:inline-flex}
+.avatar-stack .avatar{border:1px solid var(--paper);margin-left:-8px}
+.avatar-stack .avatar:first-child{margin-left:0}
+
+/* — Forms — */
+.f-label{display:block;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:var(--s2)}
+.f-input,.f-select,.f-area{
+  width:100%;background:var(--paper);border:1px solid var(--line);padding:10px 12px;outline:none;
+}
+.f-input:focus,.f-select:focus,.f-area:focus{border-color:var(--red);box-shadow:inset 0 0 0 1px var(--red)}
+.f-input[disabled],.f-select[disabled]{background:var(--paper-2);color:var(--ink-3)}
+.f-error{border-color:var(--red)!important}
+.f-help{font-size:12px;color:var(--ink-2);margin-top:var(--s1)}
+.f-err-msg{font-size:12px;color:var(--red);font-weight:600;margin-top:var(--s1)}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5)}
+.f-group{margin-bottom:var(--s5)}
+.f-prefix{display:flex}
+.f-prefix .pre{display:flex;align-items:center;border:1px solid var(--line);border-right:0;background:var(--paper-2);padding:0 12px;font-weight:700;font-size:12px}
+.f-prefix .f-input{flex:1}
+.check{display:inline-flex;align-items:center;gap:var(--s2);cursor:pointer;font-size:13px;font-weight:500;user-select:none}
+.check input{position:absolute;opacity:0;width:0;height:0}
+.check .box{width:18px;height:18px;border:1px solid var(--line);background:var(--paper);display:inline-flex;align-items:center;justify-content:center;flex:none;font-size:12px;font-weight:900;color:#fff}
+.check input:checked + .box{background:var(--ink)}
+.check input:checked + .box::after{content:"✕";color:var(--paper);font-size:11px}
+.check.radio .box{border-radius:50%}
+.check.radio input:checked + .box{background:var(--paper)}
+.check.radio input:checked + .box::after{content:"";width:8px;height:8px;background:var(--red)}
+.check.indet .box{background:var(--ink)}
+.check.indet .box::after{content:"—";color:var(--paper);font-size:11px}
+.switch{display:inline-flex;align-items:center;gap:var(--s2);cursor:pointer;font-size:13px;font-weight:500;user-select:none}
+.switch input{position:absolute;opacity:0;width:0;height:0}
+.switch .track{width:40px;height:20px;border:1px solid var(--line);background:var(--paper);position:relative;flex:none}
+.switch .track::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;background:var(--ink);transition:left .15s}
+.switch input:checked + .track{background:var(--ink)}
+.switch input:checked + .track::after{left:22px;background:var(--red)}
+input[type="range"].f-range{-webkit-appearance:none;appearance:none;width:100%;height:2px;background:var(--line);outline:none}
+input[type="range"].f-range::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;background:var(--red);border:0;cursor:pointer}
+input[type="range"].f-range::-moz-range-thumb{width:16px;height:16px;background:var(--red);border:0;cursor:pointer}
+.upload{border:1px dashed var(--ink-3);padding:var(--s7);text-align:center;background:var(--paper-2)}
+.upload:hover{border-color:var(--red)}
+.stepper{display:inline-flex;border:1px solid var(--line)}
+.stepper button{width:36px;height:38px;border:0;background:var(--paper);font-weight:900;font-size:15px}
+.stepper button:hover{background:var(--ink);color:var(--paper)}
+.stepper input{width:52px;border:0;border-left:1px solid var(--line);border-right:1px solid var(--line);text-align:center;outline:none;background:var(--paper)}
+
+/* — Tabs, pagination, breadcrumbs — */
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.tab{border:0;background:none;padding:10px 16px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);border-bottom:3px solid transparent;margin-bottom:-1px}
+.tab:hover{color:var(--ink)}
+.tab.active{color:var(--ink);border-bottom-color:var(--red)}
+.pager{display:inline-flex;border:1px solid var(--line)}
+.pager a,.pager span{min-width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border-right:1px solid var(--line-soft);padding:0 8px;font-variant-numeric:tabular-nums}
+.pager a:last-child{border-right:0}
+.pager a:hover{background:var(--ink);color:var(--paper);text-decoration:none}
+.pager .cur{background:var(--red);color:#fff}
+.crumbs{display:flex;align-items:center;gap:var(--s2);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.crumbs a{color:var(--ink-3)}
+.crumbs .here{color:var(--ink)}
+.crumbs .sep{color:var(--red);font-weight:900}
+
+/* — Alerts, toasts, modal — */
+.alert{border:1px solid var(--line);border-left:8px solid var(--ink);padding:var(--s4) var(--s5);display:flex;gap:var(--s4);background:var(--paper)}
+.alert.red{border-left-color:var(--red)}
+.alert.fill{background:var(--ink);color:var(--paper)}
+.alert.fill-red{background:var(--red);border-color:var(--red);color:#fff}
+.alert .t{font-weight:800;text-transform:uppercase;font-size:12px;letter-spacing:.08em}
+#toast-root{position:fixed;bottom:24px;right:24px;z-index:200;display:flex;flex-direction:column;gap:var(--s2);max-width:360px}
+.toast{background:var(--ink);color:var(--paper);border-left:8px solid var(--red);padding:var(--s3) var(--s4);font-size:13px;box-shadow:none;animation:tin .2s}
+.toast.light{background:var(--paper);color:var(--ink);border:1px solid var(--line);border-left:8px solid var(--red)}
+@keyframes tin{from{transform:translateX(16px);opacity:0}to{transform:none;opacity:1}}
+.modal-veil{position:fixed;inset:0;background:rgba(17,17,17,.55);z-index:150;display:flex;align-items:center;justify-content:center;padding:var(--s5)}
+.modal{background:var(--paper);color:var(--ink);border:1px solid var(--line);width:100%;max-width:520px;max-height:88vh;overflow-y:auto}
+.modal.sm{max-width:380px}.modal.lg{max-width:760px}
+.modal-head{display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid var(--line);padding:var(--s4) var(--s5)}
+.modal-body{padding:var(--s5)}
+.modal-foot{border-top:1px solid var(--line);padding:var(--s4) var(--s5);display:flex;justify-content:flex-end;gap:var(--s3)}
+
+/* — Progress, steps, misc — */
+.progress{height:8px;background:var(--paper-3);position:relative}
+.progress i{position:absolute;inset:0;right:auto;background:var(--ink)}
+.progress.red i{background:var(--red)}
+.progress.thin{height:3px}
+.steps{display:flex;gap:0}
+.step{flex:1;border-top:3px solid var(--line-soft);padding-top:var(--s2);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.step.done{border-top-color:var(--ink);color:var(--ink)}
+.step.now{border-top-color:var(--red);color:var(--ink)}
+.accordion{border-top:1px solid var(--line)}
+.acc-item{border-bottom:1px solid var(--line)}
+.acc-head{width:100%;display:flex;justify-content:space-between;align-items:center;background:none;border:0;padding:var(--s4) 0;font-size:14px;font-weight:700;text-align:left}
+.acc-body{padding:0 0 var(--s4);color:var(--ink-2);display:none}
+.acc-item.open .acc-body{display:block}
+.menu{border:1px solid var(--line);background:var(--paper);min-width:200px}
+.menu a{display:flex;justify-content:space-between;padding:9px 14px;font-size:13px;font-weight:500}
+.menu a:hover{background:var(--ink);color:var(--paper);text-decoration:none}
+.tooltip{display:inline-block;border-bottom:1px dotted var(--red);cursor:help}
+.kbd{border:1px solid var(--line);border-bottom-width:3px;padding:0 6px;font-size:11px;font-weight:700;background:var(--paper-2)}
+.stars{color:var(--red);letter-spacing:2px;font-size:14px}
+.stars .off{color:var(--ink-3)}
+
+/* — Tables (the house style: rules, not cards) — */
+.tbl-wrap{overflow-x:auto}
+table.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{
+  text-align:left;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 12px;white-space:nowrap;
+}
+.tbl td{border-bottom:1px solid var(--line-soft);padding:11px 12px;vertical-align:middle}
+.tbl tbody tr:hover td{background:var(--paper-2)}
+.tbl .r{text-align:right;font-variant-numeric:tabular-nums}
+.tbl .no{color:var(--ink-3);font-weight:700;font-variant-numeric:tabular-nums;width:34px}
+.tbl tfoot td{border-top:3px solid var(--line);border-bottom:0;font-weight:800;background:var(--paper)}
+.tbl.dense td{padding:7px 12px}
+.tbl.selectable tbody tr{cursor:pointer}
+.tbl .total-row td{border-top:3px solid var(--line);font-weight:800}
+
+/* — Stat plates — */
+.stat{border-top:3px solid var(--line);padding-top:var(--s3)}
+.stat .micro{color:var(--ink-2)}
+.stat .v{font-size:40px;font-weight:900;letter-spacing:-.02em;line-height:1.05;font-variant-numeric:tabular-nums}
+.stat .d{font-size:12px;margin-top:var(--s1);display:flex;align-items:center;gap:6px}
+.plate{border:1px solid var(--line);padding:var(--s5);background:var(--paper)}
+.plate-2{background:var(--paper-2);border:1px solid var(--line)}
+.plate-ink{background:var(--ink);color:var(--paper);border:1px solid var(--line);padding:var(--s5)}
+.plate-red{background:var(--red);color:#fff;border:1px solid var(--red);padding:var(--s5)}
+
+/* — Timeline / activity — */
+.timeline{border-left:1px solid var(--line);margin-left:4px}
+.tl-item{position:relative;padding:0 0 var(--s5) var(--s6)}
+.tl-item::before{content:"";position:absolute;left:-5px;top:5px;width:9px;height:9px;background:var(--paper);border:1px solid var(--line)}
+.tl-item.hot::before{background:var(--red);border-color:var(--red)}
+
+/* — Empty state — */
+.empty{border:1px solid var(--line);padding:var(--s10) var(--s6);text-align:left;background:var(--paper)}
+.empty .big{font-size:56px;font-weight:900;letter-spacing:-.02em;line-height:1;text-transform:uppercase}
